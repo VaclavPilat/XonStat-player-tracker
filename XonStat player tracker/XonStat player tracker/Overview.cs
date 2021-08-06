@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace XonStat_player_tracker
 {
-    public partial class Form1 : Form
+    public partial class Overview : Form
     {
-        public Form1()
+        public Overview()
         {
             InitializeComponent();
         }

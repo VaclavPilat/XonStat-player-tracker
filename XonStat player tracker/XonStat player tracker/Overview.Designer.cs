@@ -1,7 +1,7 @@
 ﻿
 namespace XonStat_player_tracker
 {
-    partial class Form1
+    partial class Overview
     {
         /// <summary>
         ///  Required designer variable.
@@ -31,13 +31,13 @@ namespace XonStat_player_tracker
         {
             this.SuspendLayout();
             // 
-            // Form1
+            // Overview
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Name = "Form1";
-            this.Text = "Form1";
+            this.Name = "Overview";
+            this.Text = "XonStat player tracker - Overview";
             this.ResumeLayout(false);
 
         }
