@@ -29,6 +29,7 @@ namespace XonStat_player_tracker
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Overview));
             this.SuspendLayout();
             // 
             // Overview
@@ -36,6 +37,7 @@ namespace XonStat_player_tracker
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Overview";
             this.Text = "XonStat player tracker - Overview";
             this.ResumeLayout(false);
