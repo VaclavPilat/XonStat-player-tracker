@@ -14,10 +14,10 @@ namespace XonStat_player_tracker
 {
     public partial class Overview : Form
     {
-        public Overview()
-        {
-            InitializeComponent();
-        }
+        // List of startup errors
+        public static List<string> StartupErrors = new List<string>();
+
+        public Overview() => InitializeComponent();
 
         private void Overview_Load(object sender, EventArgs e)
         {
@@ -30,6 +30,19 @@ namespace XonStat_player_tracker
             }
         }
 
+        // Runs after _Load()
+        private void Overview_Shown(object sender, EventArgs e)
+        {
+            // Showing startup errors
+            string errorMessage = "";
+            if (StartupErrors.Count > 0)
+                for(int i = 0; i < StartupErrors.Count; i++)
+                    errorMessage += "\n" + (i + 1).ToString() + ") " + StartupErrors[i];
+            if (errorMessage != "")
+                MessageBox.Show("These errors were found while loading this form:" + errorMessage, "XonStat player tracker", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+
+        // Actions after clicking on a cell value
         private void players_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex >= 0) // Disabling onclick actions for column headers

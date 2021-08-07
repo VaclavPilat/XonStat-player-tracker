@@ -23,7 +23,7 @@ namespace XonStat_player_tracker
         {
             int number = 0;
             if (!Int32.TryParse(id, out number))
-                MessageBox.Show("Cannot convert \"" + id + "\" to a player ID.", "XonStat player tracker", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Overview.StartupErrors.Add("Cannot convert \"" + id + "\" to a player ID.");
             this.ID = number;
         }
 
@@ -37,8 +37,12 @@ namespace XonStat_player_tracker
         // Loads player nickname from Appconfig and returns it
         public string LoadNickname()
         {
-            string nickname = ConfigurationManager.AppSettings[this.ID.ToString()];
-            //MessageBox.Show("Cannot find player nickname using ID = " + this.ID.ToString(), "XonStat player tracker", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            // Checking if there is a nickname that matches ID
+            string nickname = "---";
+            if(Array.IndexOf(ConfigurationManager.AppSettings.AllKeys, this.ID.ToString()) > -1)
+                nickname = ConfigurationManager.AppSettings[this.ID.ToString()];
+            else
+                Overview.StartupErrors.Add("Cannot find player nickname using ID = " + this.ID.ToString());
             this.Nickname = nickname;
             return this.Nickname;
         }
