@@ -30,21 +30,90 @@ namespace XonStat_player_tracker
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Overview));
+            this.players = new System.Windows.Forms.DataGridView();
+            this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.nickname = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.name = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.active = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.actions = new System.Windows.Forms.DataGridViewButtonColumn();
+            ((System.ComponentModel.ISupportInitialize)(this.players)).BeginInit();
             this.SuspendLayout();
+            // 
+            // players
+            // 
+            this.players.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.players.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.players.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.id,
+            this.nickname,
+            this.name,
+            this.active,
+            this.actions});
+            this.players.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.players.Location = new System.Drawing.Point(0, 0);
+            this.players.Name = "players";
+            this.players.RowHeadersWidth = 51;
+            this.players.RowTemplate.Height = 29;
+            this.players.Size = new System.Drawing.Size(982, 453);
+            this.players.TabIndex = 0;
+            // 
+            // id
+            // 
+            this.id.HeaderText = "Player ID";
+            this.id.MinimumWidth = 6;
+            this.id.Name = "id";
+            this.id.ReadOnly = true;
+            // 
+            // nickname
+            // 
+            this.nickname.HeaderText = "Player nickname";
+            this.nickname.MinimumWidth = 6;
+            this.nickname.Name = "nickname";
+            this.nickname.ReadOnly = true;
+            // 
+            // name
+            // 
+            this.name.HeaderText = "Current player name";
+            this.name.MinimumWidth = 6;
+            this.name.Name = "name";
+            this.name.ReadOnly = true;
+            // 
+            // active
+            // 
+            this.active.HeaderText = "Last active";
+            this.active.MinimumWidth = 6;
+            this.active.Name = "active";
+            this.active.ReadOnly = true;
+            // 
+            // actions
+            // 
+            this.actions.HeaderText = "Actions";
+            this.actions.MinimumWidth = 6;
+            this.actions.Name = "actions";
             // 
             // Overview
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(982, 453);
+            this.Controls.Add(this.players);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Overview";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "XonStat player tracker - Overview";
+            ((System.ComponentModel.ISupportInitialize)(this.players)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
+
+        private System.Windows.Forms.DataGridView players;
+        private System.Windows.Forms.DataGridViewTextBoxColumn id;
+        private System.Windows.Forms.DataGridViewTextBoxColumn nickname;
+        private System.Windows.Forms.DataGridViewTextBoxColumn name;
+        private System.Windows.Forms.DataGridViewTextBoxColumn active;
+        private System.Windows.Forms.DataGridViewButtonColumn actions;
     }
 }
 
