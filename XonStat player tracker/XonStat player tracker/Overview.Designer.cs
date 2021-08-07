@@ -1,4 +1,4 @@
-﻿
+
 namespace XonStat_player_tracker
 {
     partial class Overview
@@ -41,6 +41,9 @@ namespace XonStat_player_tracker
             // 
             // players
             // 
+            this.players.AllowUserToAddRows = false;
+            this.players.AllowUserToDeleteRows = false;
+            this.players.AllowUserToResizeRows = false;
             this.players.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.players.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.players.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
