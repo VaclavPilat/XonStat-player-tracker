@@ -35,7 +35,7 @@ namespace XonStat_player_tracker
             this.nickname = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.name = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.active = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.actions = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.profile = new System.Windows.Forms.DataGridViewButtonColumn();
             ((System.ComponentModel.ISupportInitialize)(this.players)).BeginInit();
             this.SuspendLayout();
             // 
@@ -48,7 +48,7 @@ namespace XonStat_player_tracker
             this.nickname,
             this.name,
             this.active,
-            this.actions});
+            this.profile});
             this.players.Dock = System.Windows.Forms.DockStyle.Fill;
             this.players.Location = new System.Drawing.Point(0, 0);
             this.players.Name = "players";
@@ -85,11 +85,14 @@ namespace XonStat_player_tracker
             this.active.Name = "active";
             this.active.ReadOnly = true;
             // 
-            // actions
+            // profile
             // 
-            this.actions.HeaderText = "Actions";
-            this.actions.MinimumWidth = 6;
-            this.actions.Name = "actions";
+            this.profile.HeaderText = "Profile";
+            this.profile.MinimumWidth = 6;
+            this.profile.Name = "profile";
+            this.profile.ReadOnly = true;
+            this.profile.Text = "Show profile";
+            this.profile.UseColumnTextForButtonValue = true;
             // 
             // Overview
             // 
@@ -113,7 +116,7 @@ namespace XonStat_player_tracker
         private System.Windows.Forms.DataGridViewTextBoxColumn nickname;
         private System.Windows.Forms.DataGridViewTextBoxColumn name;
         private System.Windows.Forms.DataGridViewTextBoxColumn active;
-        private System.Windows.Forms.DataGridViewButtonColumn actions;
+        private System.Windows.Forms.DataGridViewButtonColumn profile;
     }
 }
 
