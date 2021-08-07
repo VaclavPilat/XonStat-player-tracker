@@ -15,6 +15,8 @@ namespace XonStat_player_tracker
         public Overview()
         {
             InitializeComponent();
+            // Filling DatGridView with data
+            players.Rows.Add(new string[] { "137012", "napalm", "<nade type=\"napalm\" />", "2 days ago" });
         }
 
     }
