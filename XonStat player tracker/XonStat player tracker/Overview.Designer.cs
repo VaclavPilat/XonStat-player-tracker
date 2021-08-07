@@ -1,4 +1,4 @@
-﻿
+
 namespace XonStat_player_tracker
 {
     partial class Overview

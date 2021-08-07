@@ -21,10 +21,13 @@ namespace XonStat_player_tracker
 
         private void Overview_Load(object sender, EventArgs e)
         {
-            // Filling DatGridView with data
+            // Filling DatGridView with player data
             var playerList = ConfigurationManager.AppSettings;
             foreach (string id in playerList.AllKeys)
-                players.Rows.Add(new object[] { Int32.Parse(id), playerList[id] });
+            {
+                Player player = new Player(id);
+                players.Rows.Add(new object[] { player.ID, player.LoadNickname() });
+            }
         }
 
         private void players_CellContentClick(object sender, DataGridViewCellEventArgs e)
