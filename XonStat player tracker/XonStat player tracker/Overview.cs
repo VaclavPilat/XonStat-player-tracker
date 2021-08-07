@@ -22,19 +22,20 @@ namespace XonStat_player_tracker
 
         private void players_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            switch (players.Columns[e.ColumnIndex].Name)
-            {
-                case "profile":
-                    // Showing player profile in a browser
-                    Process.Start(new ProcessStartInfo("http://stats.xonotic.org/player/" + players.Rows[e.RowIndex].Cells[0].Value.ToString())
-                    { // https://stackoverflow.com/a/53245993
-                        UseShellExecute = true,
-                        Verb = "open"
-                    });
-                    break;
-                default:
-                    break;
-            }
+            if (e.RowIndex >= 0) // Disabling onclick actions for column headers
+                switch (players.Columns[e.ColumnIndex].Name)
+                {
+                    case "profile":
+                        // Showing player profile in a browser
+                        Process.Start(new ProcessStartInfo("https://stats.xonotic.org/player/" + players.Rows[e.RowIndex].Cells[0].Value.ToString())
+                        { // https://stackoverflow.com/a/53245993
+                            UseShellExecute = true,
+                            Verb = "open"
+                        });
+                        break;
+                    default:
+                        break;
+                }
         }
     }
 }
