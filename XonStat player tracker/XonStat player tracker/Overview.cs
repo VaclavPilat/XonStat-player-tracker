@@ -8,8 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Diagnostics;
-using System.IO;
-using System.Text.Json;
+using System.Configuration;
 
 namespace XonStat_player_tracker
 {
@@ -23,7 +22,9 @@ namespace XonStat_player_tracker
         private void Overview_Load(object sender, EventArgs e)
         {
             // Filling DatGridView with data
-            players.Rows.Add(new string[] { "137012", "napalm", "<nade type=\"napalm\" />", "2 days ago" });
+            var playerList = ConfigurationManager.AppSettings;
+            foreach (string id in playerList.AllKeys)
+                players.Rows.Add(new string[] { id, playerList[id] });
         }
 
         private void players_CellContentClick(object sender, DataGridViewCellEventArgs e)
