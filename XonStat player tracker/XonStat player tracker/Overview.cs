@@ -8,6 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Diagnostics;
+using System.IO;
+using System.Text.Json;
 
 namespace XonStat_player_tracker
 {
@@ -16,6 +18,10 @@ namespace XonStat_player_tracker
         public Overview()
         {
             InitializeComponent();
+        }
+
+        private void Overview_Load(object sender, EventArgs e)
+        {
             // Filling DatGridView with data
             players.Rows.Add(new string[] { "137012", "napalm", "<nade type=\"napalm\" />", "2 days ago" });
         }

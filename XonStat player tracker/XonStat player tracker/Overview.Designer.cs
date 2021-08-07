@@ -43,6 +43,7 @@ namespace XonStat_player_tracker
             // 
             this.players.AllowUserToAddRows = false;
             this.players.AllowUserToDeleteRows = false;
+            this.players.AllowUserToOrderColumns = true;
             this.players.AllowUserToResizeRows = false;
             this.players.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.players.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -55,6 +56,7 @@ namespace XonStat_player_tracker
             this.players.Dock = System.Windows.Forms.DockStyle.Fill;
             this.players.Location = new System.Drawing.Point(0, 0);
             this.players.Name = "players";
+            this.players.ReadOnly = true;
             this.players.RowHeadersWidth = 51;
             this.players.RowTemplate.Height = 29;
             this.players.Size = new System.Drawing.Size(982, 453);
@@ -108,6 +110,7 @@ namespace XonStat_player_tracker
             this.Name = "Overview";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "XonStat player tracker - Overview";
+            this.Load += new System.EventHandler(this.Overview_Load);
             ((System.ComponentModel.ISupportInitialize)(this.players)).EndInit();
             this.ResumeLayout(false);
 
