@@ -24,7 +24,7 @@ namespace XonStat_player_tracker
             // Filling DatGridView with data
             var playerList = ConfigurationManager.AppSettings;
             foreach (string id in playerList.AllKeys)
-                players.Rows.Add(new string[] { id, playerList[id] });
+                players.Rows.Add(new object[] { Int32.Parse(id), playerList[id] });
         }
 
         private void players_CellContentClick(object sender, DataGridViewCellEventArgs e)
