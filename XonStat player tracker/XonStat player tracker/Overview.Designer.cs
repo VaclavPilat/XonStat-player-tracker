@@ -1,4 +1,4 @@
-
+﻿
 namespace XonStat_player_tracker
 {
     partial class Overview
@@ -59,6 +59,7 @@ namespace XonStat_player_tracker
             this.players.RowTemplate.Height = 29;
             this.players.Size = new System.Drawing.Size(982, 453);
             this.players.TabIndex = 0;
+            this.players.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.players_CellContentClick);
             // 
             // id
             // 
