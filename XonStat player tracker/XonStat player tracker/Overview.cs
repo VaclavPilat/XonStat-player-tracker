@@ -50,12 +50,16 @@ namespace XonStat_player_tracker
         private void players_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex >= 0) // Disabling onclick actions for column headers
+            {
+                // Getting the correct Player object
+                string playerID = players.Rows[e.RowIndex].Cells[0].Value.ToString();
+                Player currentPlayer = PlayerList.Where(x => playerID.Contains(x.ID.ToString())).ToList().First();
+                // Performing onclick actions
                 switch (players.Columns[e.ColumnIndex].Name)
                 {
                     case "profile":
                         // Showing player profile in a browser
-                        Process.Start(new ProcessStartInfo("https://stats.xonotic.org/player/" + players.Rows[e.RowIndex].Cells[0].Value.ToString())
-                        { // https://stackoverflow.com/a/53245993
+                        Process.Start(new ProcessStartInfo(currentPlayer.ProfileURL()) { // https://stackoverflow.com/a/53245993
                             UseShellExecute = true,
                             Verb = "open"
                         });
@@ -63,6 +67,7 @@ namespace XonStat_player_tracker
                     default:
                         break;
                 }
+            }
         }
     }
 }
