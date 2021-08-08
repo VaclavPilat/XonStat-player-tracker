@@ -27,6 +27,12 @@ namespace XonStat_player_tracker
             this.ID = number;
         }
 
+        // Gets profile URL
+        public string ProfileURL()
+        {
+            return "https://stats.xonotic.org/player/" + this.ID.ToString();
+        }
+
         // Loads all variables
         public void LoadAll ()
         {

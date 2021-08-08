@@ -14,6 +14,9 @@ namespace XonStat_player_tracker
 {
     public partial class Overview : Form
     {
+        // List of players
+        public static List<Player> PlayerList = new List<Player>();
+
         // List of startup errors
         public static List<string> StartupErrors = new List<string>();
 
@@ -27,6 +30,7 @@ namespace XonStat_player_tracker
             {
                 Player player = new Player(id);
                 players.Rows.Add(new object[] { player.ID, player.LoadNickname() });
+                PlayerList.Add(player);
             }
         }
 
