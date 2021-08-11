@@ -36,7 +36,7 @@ namespace XonStat_player_tracker
                 PlayerList.Add(player);
             }
             // Starting worker thread
-            workerThread = new Task(() => LoadPlayerProfiles());
+            workerThread = new Task(() => LoadInfoFromProfiles());
             workerThread.Start();
         }
 
@@ -77,11 +77,17 @@ namespace XonStat_player_tracker
         }
 
         // Loading all player profiles
-        private void LoadPlayerProfiles()
+        private void LoadInfoFromProfiles()
         {
-            Player player = PlayerList.First();
-            player.LoadProfile();
-            MessageBox.Show(player.LoadName());
+            foreach (Player player in PlayerList)
+            {
+                player.LoadProfile();
+                int row = PlayerList.IndexOf(player);
+                if (row >= 0)
+                {
+                    players.Rows[row].Cells[2].Value = player.LoadName();
+                }
+            }
         }
     }
 }
