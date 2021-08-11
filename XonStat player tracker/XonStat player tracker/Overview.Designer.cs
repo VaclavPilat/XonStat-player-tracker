@@ -30,6 +30,7 @@ namespace XonStat_player_tracker
         private void InitializeComponent()
         {
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Overview));
             this.players = new System.Windows.Forms.DataGridView();
             this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -37,6 +38,7 @@ namespace XonStat_player_tracker
             this.name = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.active = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.profile = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.info = new System.Windows.Forms.DataGridViewButtonColumn();
             ((System.ComponentModel.ISupportInitialize)(this.players)).BeginInit();
             this.SuspendLayout();
             // 
@@ -53,7 +55,8 @@ namespace XonStat_player_tracker
             this.nickname,
             this.name,
             this.active,
-            this.profile});
+            this.profile,
+            this.info});
             this.players.Dock = System.Windows.Forms.DockStyle.Fill;
             this.players.Location = new System.Drawing.Point(0, 0);
             this.players.Name = "players";
@@ -113,6 +116,20 @@ namespace XonStat_player_tracker
             this.profile.ToolTipText = "Show player profile in a browser";
             this.profile.UseColumnTextForButtonValue = true;
             // 
+            // info
+            // 
+            this.info.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.LemonChiffon;
+            this.info.DefaultCellStyle = dataGridViewCellStyle2;
+            this.info.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.info.HeaderText = "Player info";
+            this.info.MinimumWidth = 150;
+            this.info.Name = "info";
+            this.info.ReadOnly = true;
+            this.info.Text = "More information";
+            this.info.UseColumnTextForButtonValue = true;
+            // 
             // Overview
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
@@ -139,6 +156,7 @@ namespace XonStat_player_tracker
         private System.Windows.Forms.DataGridViewTextBoxColumn name;
         private System.Windows.Forms.DataGridViewTextBoxColumn active;
         private System.Windows.Forms.DataGridViewButtonColumn profile;
+        private System.Windows.Forms.DataGridViewButtonColumn info;
     }
 }
 

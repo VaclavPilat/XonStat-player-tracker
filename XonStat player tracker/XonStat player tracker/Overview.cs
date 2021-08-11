@@ -75,6 +75,11 @@ namespace XonStat_player_tracker
                             Verb = "open"
                         });
                         break;
+                    case "info":
+                        // Showing a form with more info about the player
+                        PlayerInfo playerInfo = new PlayerInfo();
+                        playerInfo.Show();
+                        break;
                     default:
                         break;
                 }
