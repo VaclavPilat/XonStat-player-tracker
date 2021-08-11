@@ -29,6 +29,7 @@ namespace XonStat_player_tracker
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Overview));
             this.players = new System.Windows.Forms.DataGridView();
             this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -59,52 +60,64 @@ namespace XonStat_player_tracker
             this.players.ReadOnly = true;
             this.players.RowHeadersWidth = 51;
             this.players.RowTemplate.Height = 29;
-            this.players.Size = new System.Drawing.Size(982, 453);
+            this.players.Size = new System.Drawing.Size(1182, 553);
             this.players.TabIndex = 0;
             this.players.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.players_CellContentClick);
             // 
             // id
             // 
+            this.id.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.id.HeaderText = "Player ID";
-            this.id.MinimumWidth = 6;
+            this.id.MinimumWidth = 100;
             this.id.Name = "id";
             this.id.ReadOnly = true;
             // 
             // nickname
             // 
+            this.nickname.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.nickname.FillWeight = 200F;
             this.nickname.HeaderText = "Player nickname";
-            this.nickname.MinimumWidth = 6;
+            this.nickname.MinimumWidth = 200;
             this.nickname.Name = "nickname";
             this.nickname.ReadOnly = true;
             // 
             // name
             // 
+            this.name.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.name.FillWeight = 300F;
             this.name.HeaderText = "Current player name";
-            this.name.MinimumWidth = 6;
+            this.name.MinimumWidth = 300;
             this.name.Name = "name";
             this.name.ReadOnly = true;
             // 
             // active
             // 
+            this.active.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.active.HeaderText = "Last active";
-            this.active.MinimumWidth = 6;
+            this.active.MinimumWidth = 150;
             this.active.Name = "active";
             this.active.ReadOnly = true;
             // 
             // profile
             // 
+            this.profile.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.LightSkyBlue;
+            this.profile.DefaultCellStyle = dataGridViewCellStyle1;
+            this.profile.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.profile.HeaderText = "Profile";
-            this.profile.MinimumWidth = 6;
+            this.profile.MinimumWidth = 150;
             this.profile.Name = "profile";
             this.profile.ReadOnly = true;
             this.profile.Text = "Show profile";
+            this.profile.ToolTipText = "Show player profile in a browser";
             this.profile.UseColumnTextForButtonValue = true;
             // 
             // Overview
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(982, 453);
+            this.ClientSize = new System.Drawing.Size(1182, 553);
             this.Controls.Add(this.players);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Overview";
