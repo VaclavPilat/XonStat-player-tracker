@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -19,7 +19,7 @@ namespace XonStat_player_tracker
         private List<Player> PlayerList = new List<Player>();
 
         // List of startup errors
-        public static List<string> StartupErrors = new List<string>();
+        public static List<string> Errors = new List<string>();
 
         // Worker thread
         private Task task;
@@ -46,15 +46,18 @@ namespace XonStat_player_tracker
         }
 
         // Runs after _Load()
-        private void Overview_Shown(object sender, EventArgs e)
+        private void Overview_Shown(object sender, EventArgs e) => ShowErrors();
+
+        // Showing multiple errors in one dialog
+        private void ShowErrors()
         {
-            // Showing startup errors
             string errorMessage = "";
-            if (StartupErrors.Count > 0)
-                for(int i = 0; i < StartupErrors.Count; i++)
-                    errorMessage += "\n" + (i + 1).ToString() + ") " + StartupErrors[i];
+            if (Errors.Count > 0)
+                for (int i = 0; i < Errors.Count; i++)
+                    errorMessage += "\n" + (i + 1).ToString() + ") " + Errors[i];
             if (errorMessage != "")
                 MessageBox.Show("These errors were found while loading this form:" + errorMessage, "XonStat player tracker", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            Errors.RemoveRange(0, Errors.Count);
         }
 
         // Actions after clicking on a cell value
@@ -114,6 +117,7 @@ namespace XonStat_player_tracker
                         players.Rows[row].Cells[3].Value = player.LoadActive();
                     }
                 }
+                ShowErrors();
             }
             catch (OperationCanceledException) {}
         }

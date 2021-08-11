@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -26,7 +26,7 @@ namespace XonStat_player_tracker
         {
             int number = 0;
             if (!Int32.TryParse(id, out number))
-                Overview.StartupErrors.Add("Cannot convert \"" + id + "\" to a player ID.");
+                Overview.Errors.Add("Cannot convert \"" + id + "\" to a player ID.");
             this.ID = number;
         }
 
@@ -51,7 +51,7 @@ namespace XonStat_player_tracker
             if(Array.IndexOf(ConfigurationManager.AppSettings.AllKeys, this.ID.ToString()) > -1)
                 nickname = ConfigurationManager.AppSettings[this.ID.ToString()];
             else
-                Overview.StartupErrors.Add("Cannot find player nickname using ID = " + this.ID.ToString());
+                Overview.Errors.Add("Cannot find player nickname using ID = " + this.ID.ToString());
             this.Nickname = nickname;
             return this.Nickname;
         }
