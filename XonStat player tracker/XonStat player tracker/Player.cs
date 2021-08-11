@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Configuration;
+using System.Net;
 
 namespace XonStat_player_tracker
 {
@@ -14,6 +15,7 @@ namespace XonStat_player_tracker
         public string Nickname { get; set; }
         public string Name { get; set; }
         public string Active { get; set; }
+        public string ProfileHTML { get; set; }
 
         // Constructor with int ID
         public Player(int id) => this.ID = id;
@@ -51,6 +53,13 @@ namespace XonStat_player_tracker
                 Overview.StartupErrors.Add("Cannot find player nickname using ID = " + this.ID.ToString());
             this.Nickname = nickname;
             return this.Nickname;
+        }
+
+        // Loads player profile
+        public void LoadProfile()
+        {
+            WebClient client = new WebClient();
+            this.ProfileHTML = client.DownloadString(this.ProfileURL());
         }
 
         // Loads current player nickname and returns it

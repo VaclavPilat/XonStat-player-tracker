@@ -15,10 +15,13 @@ namespace XonStat_player_tracker
     public partial class Overview : Form
     {
         // List of players
-        public static List<Player> PlayerList = new List<Player>();
+        private List<Player> PlayerList = new List<Player>();
 
         // List of startup errors
         public static List<string> StartupErrors = new List<string>();
+
+        // Worker thread
+        private Task workerThread;
 
         public Overview() => InitializeComponent();
 
@@ -32,6 +35,9 @@ namespace XonStat_player_tracker
                 players.Rows.Add(new object[] { player.ID, player.LoadNickname() });
                 PlayerList.Add(player);
             }
+            // Starting worker thread
+            workerThread = new Task(() => LoadPlayerProfiles());
+            workerThread.Start();
         }
 
         // Runs after _Load()
@@ -68,6 +74,14 @@ namespace XonStat_player_tracker
                         break;
                 }
             }
+        }
+
+        // Loading all player profiles
+        private void LoadPlayerProfiles()
+        {
+            Player player = PlayerList.First();
+            player.LoadProfile();
+            MessageBox.Show(player.ProfileHTML);
         }
     }
 }
