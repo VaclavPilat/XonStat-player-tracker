@@ -12,9 +12,20 @@ namespace XonStat_player_tracker
 {
     public partial class PlayerInfo : Form
     {
-        public PlayerInfo()
+        // Player reference
+        public Player Player;
+
+        public PlayerInfo() => InitializeComponent();
+
+        public PlayerInfo(Player player)
         {
+            this.Player = player;
             InitializeComponent();
+        }
+
+        private void PlayerInfo_Load(object sender, EventArgs e)
+        {
+            MessageBox.Show(this.Player.Name);
         }
     }
 }

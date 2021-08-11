@@ -40,6 +40,7 @@ namespace XonStat_player_tracker
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "PlayerInfo";
             this.Text = "XonStat player tracker - Player info";
+            this.Load += new System.EventHandler(this.PlayerInfo_Load);
             this.ResumeLayout(false);
 
         }

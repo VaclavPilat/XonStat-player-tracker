@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -77,7 +77,7 @@ namespace XonStat_player_tracker
                         break;
                     case "info":
                         // Showing a form with more info about the player
-                        PlayerInfo playerInfo = new PlayerInfo();
+                        PlayerInfo playerInfo = new PlayerInfo(currentPlayer);
                         playerInfo.Show();
                         break;
                     default:
