@@ -82,10 +82,21 @@ namespace XonStat_player_tracker
             foreach (Player player in PlayerList)
             {
                 player.LoadProfile();
-                int row = PlayerList.IndexOf(player);
+                // FInding a row that contains info about the player (in case they get shuffled)
+                int row = -1;
+                foreach (DataGridViewRow playerRow in players.Rows)
+                {
+                    if (playerRow.Cells[0].Value.ToString().Equals(player.ID.ToString()))
+                    {
+                        row = playerRow.Index;
+                        break;
+                    }
+                }
+                // Printing out player info
                 if (row >= 0)
                 {
                     players.Rows[row].Cells[2].Value = player.LoadName();
+                    players.Rows[row].Cells[3].Value = player.LoadActive();
                 }
             }
         }

@@ -67,8 +67,15 @@ namespace XonStat_player_tracker
         // Loads current player nickname and returns it
         public string LoadName()
         {
-            this.Name = this.Profile.DocumentNode.SelectNodes("//h2").First().InnerText;//InnerHtml;
+            this.Name = this.Profile.DocumentNode.SelectSingleNode("//h2").InnerText;//InnerHtml;
             return this.Name;
+        }
+
+        // Loads the last time a player was active
+        public string LoadActive()
+        {
+            this.Active = this.Profile.DocumentNode.SelectNodes("//span[@class='abstime']")[1].InnerText;
+            return this.Active;
         }
     }
 }
