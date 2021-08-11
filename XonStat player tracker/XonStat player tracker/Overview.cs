@@ -81,7 +81,7 @@ namespace XonStat_player_tracker
         {
             Player player = PlayerList.First();
             player.LoadProfile();
-            MessageBox.Show(player.ProfileHTML);
+            MessageBox.Show(player.LoadName());
         }
     }
 }

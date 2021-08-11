@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Configuration;
 using System.Net;
+using HtmlAgilityPack;
 
 namespace XonStat_player_tracker
 {
@@ -15,7 +16,7 @@ namespace XonStat_player_tracker
         public string Nickname { get; set; }
         public string Name { get; set; }
         public string Active { get; set; }
-        public string ProfileHTML { get; set; }
+        private HtmlAgilityPack.HtmlDocument Profile { get; set; }
 
         // Constructor with int ID
         public Player(int id) => this.ID = id;
@@ -58,14 +59,16 @@ namespace XonStat_player_tracker
         // Loads player profile
         public void LoadProfile()
         {
-            WebClient client = new WebClient();
-            this.ProfileHTML = client.DownloadString(this.ProfileURL());
+            // Getting HTML document using HtmlAgilityPack package
+            var web = new HtmlWeb();
+            this.Profile = web.Load(this.ProfileURL());
         }
 
         // Loads current player nickname and returns it
         public string LoadName()
         {
-            return null;
+            this.Name = this.Profile.DocumentNode.SelectNodes("//h2").First().InnerHtml;
+            return this.Name;
         }
     }
 }
