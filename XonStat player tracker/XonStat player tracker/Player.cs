@@ -47,7 +47,7 @@ namespace XonStat_player_tracker
         public string LoadNickname()
         {
             // Checking if there is a nickname that matches ID
-            string nickname = "---";
+            string nickname = null;
             if(Array.IndexOf(ConfigurationManager.AppSettings.AllKeys, this.ID.ToString()) > -1)
                 nickname = ConfigurationManager.AppSettings[this.ID.ToString()];
             else

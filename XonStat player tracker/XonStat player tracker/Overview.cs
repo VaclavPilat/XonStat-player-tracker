@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Diagnostics;
@@ -21,7 +22,10 @@ namespace XonStat_player_tracker
         public static List<string> StartupErrors = new List<string>();
 
         // Worker thread
-        private Task workerThread;
+        private Task task;
+
+        // Cancellation token source for cancelling tasks
+        private CancellationTokenSource tokenSource = new CancellationTokenSource();
 
         public Overview() => InitializeComponent();
 
@@ -36,8 +40,9 @@ namespace XonStat_player_tracker
                 PlayerList.Add(player);
             }
             // Starting worker thread
-            workerThread = new Task(() => LoadInfoFromProfiles());
-            workerThread.Start();
+            var token = tokenSource.Token;
+            task = new Task(() => LoadInfoFromProfiles(token));
+            task.Start();
         }
 
         // Runs after _Load()
@@ -77,28 +82,42 @@ namespace XonStat_player_tracker
         }
 
         // Loading all player profiles
-        private void LoadInfoFromProfiles()
+        private void LoadInfoFromProfiles(CancellationToken token)
         {
-            foreach (Player player in PlayerList)
+            try
             {
-                player.LoadProfile();
-                // FInding a row that contains info about the player (in case they get shuffled)
-                int row = -1;
-                foreach (DataGridViewRow playerRow in players.Rows)
+                foreach (Player player in PlayerList)
                 {
-                    if (playerRow.Cells[0].Value.ToString().Equals(player.ID.ToString()))
+                    if (token.IsCancellationRequested)
+                        token.ThrowIfCancellationRequested();
+                    // Loading player profile
+                    player.LoadProfile();
+                    // FInding a row that contains info about the player (in case they get shuffled)
+                    int row = -1;
+                    foreach (DataGridViewRow playerRow in players.Rows)
                     {
-                        row = playerRow.Index;
-                        break;
+                        if (playerRow.Cells[0].Value.ToString().Equals(player.ID.ToString()))
+                        {
+                            row = playerRow.Index;
+                            break;
+                        }
+                    }
+                    // Printing out player info
+                    if (row >= 0)
+                    {
+                        players.Rows[row].Cells[2].Value = player.LoadName();
+                        players.Rows[row].Cells[3].Value = player.LoadActive();
                     }
                 }
-                // Printing out player info
-                if (row >= 0)
-                {
-                    players.Rows[row].Cells[2].Value = player.LoadName();
-                    players.Rows[row].Cells[3].Value = player.LoadActive();
-                }
             }
+            catch (OperationCanceledException) {}
+        }
+
+        private void Overview_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            tokenSource.Cancel();
+            task.Wait();
+            tokenSource.Dispose();
         }
     }
 }
