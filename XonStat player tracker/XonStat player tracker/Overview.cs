@@ -54,12 +54,7 @@ namespace XonStat_player_tracker
         }
 
         // Runs after _Load()
-        private void Overview_Shown(object sender, EventArgs e)
-        {
-            ShowErrors();
-            task.Wait();
-            ShowErrors();
-        }
+        private void Overview_Shown(object sender, EventArgs e) => ShowErrors();
 
         // Showing multiple errors in one dialog
         private void ShowErrors()
@@ -151,13 +146,17 @@ namespace XonStat_player_tracker
                             if (player.LoadName())
                             {
                                 players.Rows[row].Cells[GetGridColumnIndex("name")].Value = player.Name;
-                                if(player.LoadActive())
+                                if (player.LoadActive())
                                     players.Rows[row].Cells[GetGridColumnIndex("active")].Value = player.Active;
                             }
                     }
                 }
             }
-            catch (OperationCanceledException) {}
+            catch (OperationCanceledException) 
+            {
+                return;
+            }
+            this.Invoke(new Action(() => { ShowErrors(); }));
         }
 
         private void Overview_FormClosing(object sender, FormClosingEventArgs e)

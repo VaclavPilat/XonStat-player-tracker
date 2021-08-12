@@ -49,6 +49,8 @@ namespace XonStat_player_tracker
             this.players.AllowUserToOrderColumns = true;
             this.players.AllowUserToResizeRows = false;
             this.players.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.players.BackgroundColor = System.Drawing.SystemColors.Window;
+            this.players.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.players.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.players.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.id,
