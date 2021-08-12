@@ -18,22 +18,10 @@ namespace XonStat_player_tracker
         public string Active { get; set; }
         private HtmlAgilityPack.HtmlDocument Profile { get; set; }
 
+        public Player() { }
+
         // Constructor with int ID
         public Player(int id) => this.ID = id;
-
-        // Constructor with string ID
-        public Player (string id)
-        {
-            try
-            {
-                this.ID = Int32.Parse(id);
-            }
-            catch
-            {
-                Overview.Errors.Enqueue("Cannot convert \"" + id + "\" to a player ID.");
-                this.ID = -1;
-            }
-        }
 
         // Gets profile URL
         public string ProfileURL()

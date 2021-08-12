@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Collections.Concurrent;
 using System.ComponentModel;
@@ -34,11 +34,17 @@ namespace XonStat_player_tracker
         {
             // Filling DatGridView with player data
             var playerList = ConfigurationManager.AppSettings;
-            foreach (string id in playerList.AllKeys)
+            foreach (string stringID in playerList.AllKeys)
             {
-                Player player = new Player(id);
-                players.Rows.Add(new object[] { player.ID, player.LoadNickname() });
-                PlayerList.Add(player);
+                int intID;
+                if (Int32.TryParse(stringID, out intID))
+                {
+                    Player player = new Player(intID);
+                    players.Rows.Add(new object[] { player.ID, player.LoadNickname() });
+                    PlayerList.Add(player);
+                }
+                else
+                    Overview.Errors.Enqueue("\"" + stringID + "\" is not a valid player ID and cannot be added.");
             }
             // Starting worker thread
             var token = tokenSource.Token;
