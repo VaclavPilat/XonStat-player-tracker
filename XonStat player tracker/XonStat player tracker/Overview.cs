@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.Concurrent;
 using System.ComponentModel;
@@ -106,6 +106,32 @@ namespace XonStat_player_tracker
             }
         }
 
+        // Finding a row that contains info about the player (in case they get shuffled)
+        private int GetGridRowIndex (Player player)
+        {
+            int row = -1;
+            foreach (DataGridViewRow dataRow in players.Rows)
+                if (dataRow.Cells[0].Value.ToString().Equals(player.ID.ToString()))
+                {
+                    row = dataRow.Index;
+                    break;
+                }
+            return row;
+        }
+
+        // Getting index of a specified column
+        private int GetGridColumnIndex (string name)
+        {
+            int column = -1;
+            foreach (DataGridViewColumn dataColumn in players.Rows)
+                if (dataColumn.Name.Equals(name))
+                {
+                    column = dataColumn.Index;
+                    break;
+                }
+            return column;
+        }
+
         // Loading all player profiles
         private void LoadInfoFromProfiles(CancellationToken token)
         {
@@ -117,21 +143,12 @@ namespace XonStat_player_tracker
                         token.ThrowIfCancellationRequested();
                     // Loading player profile
                     player.LoadProfile();
-                    // FInding a row that contains info about the player (in case they get shuffled)
-                    int row = -1;
-                    foreach (DataGridViewRow playerRow in players.Rows)
-                    {
-                        if (playerRow.Cells[0].Value.ToString().Equals(player.ID.ToString()))
-                        {
-                            row = playerRow.Index;
-                            break;
-                        }
-                    }
                     // Printing out player info
+                    int row = GetGridRowIndex(player);
                     if (row >= 0)
                     {
-                        players.Rows[row].Cells[2].Value = player.LoadName();
-                        players.Rows[row].Cells[3].Value = player.LoadActive();
+                        players.Rows[row].Cells[GetGridColumnIndex("name")].Value = player.LoadName();
+                        players.Rows[row].Cells[GetGridColumnIndex("active")].Value = player.LoadActive();
                     }
                 }
             }
