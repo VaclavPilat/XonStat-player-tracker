@@ -41,8 +41,6 @@ namespace XonStat_player_tracker
             this.active = new System.Windows.Forms.Label();
             this.time_label = new System.Windows.Forms.Label();
             this.time = new System.Windows.Forms.Label();
-            this.average_label = new System.Windows.Forms.Label();
-            this.average = new System.Windows.Forms.Label();
             this.names_label = new System.Windows.Forms.Label();
             this.names = new System.Windows.Forms.Label();
             this.playerTable.SuspendLayout();
@@ -64,17 +62,14 @@ namespace XonStat_player_tracker
             this.playerTable.Controls.Add(this.active, 1, 4);
             this.playerTable.Controls.Add(this.time_label, 0, 5);
             this.playerTable.Controls.Add(this.time, 1, 5);
-            this.playerTable.Controls.Add(this.average_label, 0, 6);
-            this.playerTable.Controls.Add(this.average, 1, 6);
-            this.playerTable.Controls.Add(this.names_label, 0, 7);
-            this.playerTable.Controls.Add(this.names, 1, 7);
+            this.playerTable.Controls.Add(this.names_label, 0, 6);
+            this.playerTable.Controls.Add(this.names, 1, 6);
             this.playerTable.Dock = System.Windows.Forms.DockStyle.Fill;
             this.playerTable.Location = new System.Drawing.Point(0, 0);
             this.playerTable.Name = "playerTable";
-            this.playerTable.RowCount = 8;
+            this.playerTable.RowCount = 7;
             this.playerTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 50F));
             this.playerTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 50F));
-            this.playerTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
             this.playerTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
             this.playerTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
             this.playerTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
@@ -212,38 +207,13 @@ namespace XonStat_player_tracker
             this.time.TabIndex = 12;
             this.time.Text = "---";
             // 
-            // average_label
-            // 
-            this.average_label.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.average_label.AutoSize = true;
-            this.average_label.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.average_label.Location = new System.Drawing.Point(3, 240);
-            this.average_label.Name = "average_label";
-            this.average_label.Size = new System.Drawing.Size(235, 20);
-            this.average_label.TabIndex = 5;
-            this.average_label.Text = "Average playtime";
-            this.average_label.TextAlign = System.Drawing.ContentAlignment.TopRight;
-            // 
-            // average
-            // 
-            this.average.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.average.AutoSize = true;
-            this.average.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.average.Location = new System.Drawing.Point(244, 240);
-            this.average.Name = "average";
-            this.average.Size = new System.Drawing.Size(235, 20);
-            this.average.TabIndex = 13;
-            this.average.Text = "---";
-            // 
             // names_label
             // 
             this.names_label.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.names_label.AutoSize = true;
             this.names_label.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.names_label.Location = new System.Drawing.Point(3, 275);
+            this.names_label.Location = new System.Drawing.Point(3, 240);
             this.names_label.Name = "names_label";
             this.names_label.Size = new System.Drawing.Size(235, 20);
             this.names_label.TabIndex = 7;
@@ -256,7 +226,7 @@ namespace XonStat_player_tracker
             | System.Windows.Forms.AnchorStyles.Right)));
             this.names.AutoSize = true;
             this.names.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.names.Location = new System.Drawing.Point(244, 275);
+            this.names.Location = new System.Drawing.Point(244, 240);
             this.names.Name = "names";
             this.names.Size = new System.Drawing.Size(235, 20);
             this.names.TabIndex = 14;
@@ -286,16 +256,14 @@ namespace XonStat_player_tracker
         private System.Windows.Forms.Label name;
         private System.Windows.Forms.Label since_label;
         private System.Windows.Forms.Label active_label;
-        private System.Windows.Forms.Label average_label;
         private System.Windows.Forms.Label time_label;
         private System.Windows.Forms.Label id_label;
         private System.Windows.Forms.Label names_label;
         private System.Windows.Forms.Label id;
-        private System.Windows.Forms.Label names;
-        private System.Windows.Forms.Label average;
         private System.Windows.Forms.Label time;
         private System.Windows.Forms.Label active;
         private System.Windows.Forms.Label since;
         private System.Windows.Forms.Label nickname;
+        private System.Windows.Forms.Label names;
     }
 }

@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -53,6 +53,7 @@ namespace XonStat_player_tracker
                     this.name.Text = this.Player.Name;
                     this.active.Text = this.Player.Active;
                     this.since.Text = this.Player.Since;
+                    this.time.Text = this.Player.Time;
                 }));
             }
             catch (OperationCanceledException)

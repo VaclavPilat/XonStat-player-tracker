@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,6 +17,7 @@ namespace XonStat_player_tracker
         public string Name { get; set; }
         public string Active { get; set; }
         public string Since { get; set; }
+        public string Time { get; set; }
         private HtmlAgilityPack.HtmlDocument Profile { get; set; }
 
         public Player() { }
@@ -43,6 +44,8 @@ namespace XonStat_player_tracker
                 this.LoadActive();
             if (this.Since == null)
                 this.LoadSince();
+            if (this.Time == null)
+                this.LoadTime();
         }
 
         // Loads player nickname from Appconfig
@@ -131,3 +134,31 @@ namespace XonStat_player_tracker
             }
             return response;
         }
+
+        // Loads the total time spent (in hours)
+        public bool LoadTime()
+        {
+            bool response;
+            try
+            {
+                string timePlayedString = this.Profile.DocumentNode.SelectNodes("//div[@class='cell small-6']/p")[1].InnerText.Trim();
+                string timeString = timePlayedString.Split(": ")[1];
+                string[] timeArray = timeString.Split(" ");
+                int hours = 0;
+                for (int i = 0; i < timeArray.Length; i += 2)
+                    if (timeArray[i + 1].Contains("days"))
+                        hours += Int32.Parse(timeArray[i]) * 24;
+                    else if (timeArray[i + 1].Contains("hours"))
+                        hours += Int32.Parse(timeArray[i]);
+                this.Time = hours.ToString() + " hours";
+                response = true;
+            }
+            catch
+            { 
+                Overview.Errors.Enqueue("ID " + this.ID.ToString() + " - Cannot find total time spent");
+                response = false;
+            }
+            return response;
+        }
+    }
+}
