@@ -120,7 +120,7 @@ namespace XonStat_player_tracker
             this.name.Name = "name";
             this.name.Size = new System.Drawing.Size(476, 38);
             this.name.TabIndex = 0;
-            this.name.Text = "Player name";
+            this.name.Text = "---";
             this.name.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // nickname
@@ -271,7 +271,9 @@ namespace XonStat_player_tracker
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "PlayerInfo";
             this.Text = "XonStat player tracker - Player info";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.PlayerInfo_FormClosing);
             this.Load += new System.EventHandler(this.PlayerInfo_Load);
+            this.Shown += new System.EventHandler(this.PlayerInfo_Shown);
             this.playerTable.ResumeLayout(false);
             this.playerTable.PerformLayout();
             this.ResumeLayout(false);

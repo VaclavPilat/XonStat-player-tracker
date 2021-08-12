@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,6 +16,7 @@ namespace XonStat_player_tracker
         public string Nickname { get; set; }
         public string Name { get; set; }
         public string Active { get; set; }
+        public string Since { get; set; }
         private HtmlAgilityPack.HtmlDocument Profile { get; set; }
 
         public Player() { }
@@ -40,6 +41,8 @@ namespace XonStat_player_tracker
                 this.LoadName();
             if (this.Active == null)
                 this.LoadActive();
+            if (this.Since == null)
+                this.LoadSince();
         }
 
         // Loads player nickname from Appconfig
@@ -111,5 +114,20 @@ namespace XonStat_player_tracker
             }
             return response;
         }
-    }
-}
+
+        // Loads the time a player joined his first game
+        public bool LoadSince()
+        {
+            bool response;
+            try
+            {
+                this.Since = this.Profile.DocumentNode.SelectNodes("//span[@class='abstime']")[0].InnerText;
+                response = true;
+            }
+            catch
+            { 
+                Overview.Errors.Enqueue("ID " + this.ID.ToString() + " - Cannot find the time a player started playing");
+                response = false;
+            }
+            return response;
+        }

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Collections.Concurrent;
 using System.ComponentModel;
@@ -57,7 +57,7 @@ namespace XonStat_player_tracker
         private void Overview_Shown(object sender, EventArgs e) => ShowErrors();
 
         // Showing multiple errors in one dialog
-        private void ShowErrors()
+        public static void ShowErrors()
         {
             string errorMessage = "";
             if (Errors.Count > 0)
