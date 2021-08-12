@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Concurrent;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
@@ -19,7 +20,7 @@ namespace XonStat_player_tracker
         private List<Player> PlayerList = new List<Player>();
 
         // List of startup errors
-        public static List<string> Errors = new List<string>();
+        public static ConcurrentQueue<string> Errors = new ConcurrentQueue<string>();
 
         // Worker thread
         private Task task;
@@ -46,18 +47,28 @@ namespace XonStat_player_tracker
         }
 
         // Runs after _Load()
-        private void Overview_Shown(object sender, EventArgs e) => ShowErrors();
+        private void Overview_Shown(object sender, EventArgs e)
+        {
+            ShowErrors();
+            task.Wait();
+            ShowErrors();
+        }
 
         // Showing multiple errors in one dialog
         private void ShowErrors()
         {
             string errorMessage = "";
             if (Errors.Count > 0)
-                for (int i = 0; i < Errors.Count; i++)
-                    errorMessage += "\n" + (i + 1).ToString() + ") " + Errors[i];
-            if (errorMessage != "")
+            {
+                int index = 1;
+                foreach (string error in Errors)
+                {
+                    errorMessage += "\n" + index.ToString() + ") " + error;
+                    string removed;
+                    Errors.TryDequeue(out removed);
+                }
                 MessageBox.Show("These errors were found while loading this form:" + errorMessage, "XonStat player tracker", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            Errors.RemoveRange(0, Errors.Count);
+            }
         }
 
         // Actions after clicking on a cell value
@@ -117,7 +128,6 @@ namespace XonStat_player_tracker
                         players.Rows[row].Cells[3].Value = player.LoadActive();
                     }
                 }
-                ShowErrors();
             }
             catch (OperationCanceledException) {}
         }

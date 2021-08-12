@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -24,10 +24,15 @@ namespace XonStat_player_tracker
         // Constructor with string ID
         public Player (string id)
         {
-            int number = 0;
-            if (!Int32.TryParse(id, out number))
-                Overview.Errors.Add("Cannot convert \"" + id + "\" to a player ID.");
-            this.ID = number;
+            try
+            {
+                this.ID = Int32.Parse(id);
+            }
+            catch
+            {
+                Overview.Errors.Enqueue("Cannot convert \"" + id + "\" to a player ID.");
+                this.ID = -1;
+            }
         }
 
         // Gets profile URL
@@ -46,35 +51,59 @@ namespace XonStat_player_tracker
         // Loads player nickname from Appconfig and returns it
         public string LoadNickname()
         {
-            // Checking if there is a nickname that matches ID
-            string nickname = null;
-            if(Array.IndexOf(ConfigurationManager.AppSettings.AllKeys, this.ID.ToString()) > -1)
-                nickname = ConfigurationManager.AppSettings[this.ID.ToString()];
-            else
-                Overview.Errors.Add("Cannot find player nickname using ID = " + this.ID.ToString());
-            this.Nickname = nickname;
+            try
+            {
+                this.Nickname = ConfigurationManager.AppSettings[this.ID.ToString()];
+            }
+            catch
+            {
+                Overview.Errors.Enqueue("Cannot find player nickname using ID = " + this.ID.ToString());
+            }
             return this.Nickname;
         }
 
         // Loads player profile
         public void LoadProfile()
         {
-            // Getting HTML document using HtmlAgilityPack package
-            var web = new HtmlWeb();
-            this.Profile = web.Load(this.ProfileURL());
+            try
+            {
+                // Getting HTML document using HtmlAgilityPack package
+                var web = new HtmlWeb();
+                this.Profile = web.Load(this.ProfileURL());
+            }
+            catch
+            {
+                Overview.Errors.Enqueue("Cannot load player profile (ID = " + this.ID.ToString() + ")");
+            }
         }
 
         // Loads current player nickname and returns it
         public string LoadName()
         {
-            this.Name = this.Profile.DocumentNode.SelectSingleNode("//h2").InnerText;//InnerHtml;
+            try
+            {
+                this.Name = this.Profile.DocumentNode.SelectSingleNode("//h2").InnerText;
+            }
+            catch
+            {
+                if (this.Profile != null)
+                    Overview.Errors.Enqueue("Cannot find player name (ID = " + this.ID.ToString() + ")");
+            }
             return this.Name;
         }
 
         // Loads the last time a player was active
         public string LoadActive()
         {
-            this.Active = this.Profile.DocumentNode.SelectNodes("//span[@class='abstime']")[1].InnerText;
+            try
+            {
+                this.Active = this.Profile.DocumentNode.SelectNodes("//span[@class='abstime']")[1].InnerText;
+            }
+            catch
+            { 
+                if(this.Profile != null)
+                    Overview.Errors.Enqueue("Cannot find the last time a player (ID = " + this.ID.ToString() + ") was active");
+            }
             return this.Active;
         }
     }
