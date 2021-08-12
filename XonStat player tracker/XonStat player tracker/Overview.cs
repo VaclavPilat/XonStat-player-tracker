@@ -28,6 +28,9 @@ namespace XonStat_player_tracker
         // Cancellation token source for cancelling tasks
         private CancellationTokenSource tokenSource = new CancellationTokenSource();
 
+        // List that contains currently open PlayerInfo forms
+        public static List<PlayerInfo> OpenForms = new List<PlayerInfo>();
+
         public Overview() => InitializeComponent();
 
         private void Overview_Load(object sender, EventArgs e)
@@ -85,20 +88,46 @@ namespace XonStat_player_tracker
                 switch (players.Columns[e.ColumnIndex].Name)
                 {
                     case "profile":
-                        // Showing player profile in a browser
-                        Process.Start(new ProcessStartInfo(currentPlayer.ProfileURL()) { // https://stackoverflow.com/a/53245993
-                            UseShellExecute = true,
-                            Verb = "open"
-                        });
+                        ShowPlayerProfile(currentPlayer);
                         break;
                     case "info":
-                        // Showing a form with more info about the player
-                        PlayerInfo playerInfo = new PlayerInfo(currentPlayer);
-                        playerInfo.Show();
+                        ShowPlayerInfo(currentPlayer);
                         break;
                     default:
                         break;
                 }
+            }
+        }
+
+        // Showing player profile in a browser
+        private void ShowPlayerProfile (Player currentPlayer)
+        {
+            Process.Start(new ProcessStartInfo(currentPlayer.ProfileURL())
+            { // https://stackoverflow.com/a/53245993
+                UseShellExecute = true,
+                Verb = "open"
+            });
+        }
+
+        // Opening new PlayerInfo form
+        private void ShowPlayerInfo (Player currentPlayer)
+        {
+            // Checking if there is already a form opened that contains the same player info
+            PlayerInfo currentForm = null;
+            foreach (PlayerInfo form in OpenForms)
+                if (form.Player == currentPlayer)
+                {
+                    currentForm = form;
+                    break;
+                }
+            if (currentForm != null)
+                currentForm.BringToFront();
+            else
+            {
+                // Showing a form with more info about the player
+                PlayerInfo playerInfo = new PlayerInfo(currentPlayer);
+                playerInfo.Show();
+                OpenForms.Add(playerInfo);
             }
         }
 

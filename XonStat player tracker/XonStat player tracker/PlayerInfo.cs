@@ -72,6 +72,7 @@ namespace XonStat_player_tracker
             tokenSource.Cancel();
             task.Wait();
             tokenSource.Dispose();
+            Overview.OpenForms.Remove(this);
         }
     }
 }
