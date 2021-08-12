@@ -58,40 +58,38 @@ namespace XonStat_player_tracker
                     this.since.Text = this.Player.Since;
                     this.time.Text = this.Player.Time;
                 }));
-                LoadPlayerNames();
+                LoadPlayerNames(token);
             }
             catch (OperationCanceledException)
             {
                 return;
             }
-            catch (Exception e)
-            {
-                Overview.Errors.Enqueue(e.Message);
-            }
             this.Invoke(new Action(() => { Overview.ShowErrors(); }));
         }
 
         // Getting recently used names
-        private void LoadPlayerNames()
+        private void LoadPlayerNames(CancellationToken token)
         {
             Dictionary<string, int> usedNames = new Dictionary<string, int>();
             var htmlWeb = new HtmlWeb();
-            string gameListURL = "https://stats.xonotic.org/games?player_id=" + this.Player.ID.ToString() + "&game_type_cd=overall";
-            var gameList = htmlWeb.Load(gameListURL);
+            var gameList = htmlWeb.Load("https://stats.xonotic.org/games?player_id=" + this.Player.ID.ToString() + "&game_type_cd=overall");
             var gameLinks = gameList.DocumentNode.SelectNodes("//td[@class='text-center']/a[@class='button tiny']");
-            foreach (var gameLink in gameLinks)
-            {
-                var game = htmlWeb.Load("https://stats.xonotic.org" + gameLink.Attributes["href"].Value);
-                var playerLink = game.DocumentNode.SelectSingleNode("//a[@href='/player/" + this.Player.ID.ToString() + "']");
-                string usedName = null;
-                if (playerLink != null)
-                    usedName = WebUtility.HtmlDecode(playerLink.InnerText).Trim();
-                // Updating dictionary
-                if (usedNames.ContainsKey(usedName))
-                    usedNames[usedName]++;
-                else if (usedName != null)
-                    usedNames.Add(usedName, 1);
-            }
+            if(gameLinks != null)
+                foreach (var gameLink in gameLinks)
+                {
+                    if (token.IsCancellationRequested)
+                        token.ThrowIfCancellationRequested();
+                    var game = htmlWeb.Load("https://stats.xonotic.org" + gameLink.Attributes["href"].Value);
+                    var playerLink = game.DocumentNode.SelectSingleNode("//a[@href='/player/" + this.Player.ID.ToString() + "']");
+                    string usedName = null;
+                    if (playerLink != null)
+                        usedName = WebUtility.HtmlDecode(playerLink.InnerText).Trim();
+                    // Updating dictionary
+                    if ((usedName != null) && usedNames.ContainsKey(usedName))
+                        usedNames[usedName]++;
+                    else if (usedName != null)
+                        usedNames.Add(usedName, 1);
+                }
             PrintPlayerNames(usedNames);
         }
 
