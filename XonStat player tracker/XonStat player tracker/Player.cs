@@ -90,7 +90,8 @@ namespace XonStat_player_tracker
             bool response;
             try
             {
-                this.Name = this.Profile.DocumentNode.SelectSingleNode("//div[@class='cell small-12']//h2").InnerText;
+                string rawName = this.Profile.DocumentNode.SelectSingleNode("//div[@class='cell small-12']//h2").InnerText;
+                this.Name = WebUtility.HtmlDecode(rawName);
                 response = true;
             }
             catch
