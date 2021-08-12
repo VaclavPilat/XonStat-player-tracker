@@ -32,67 +32,84 @@ namespace XonStat_player_tracker
         // Loads all variables
         public void LoadAll ()
         {
-            LoadNickname();
-            LoadName();
+            if (this.Nickname == null)
+                this.LoadNickname();
+            if (this.Profile == null)
+                this.LoadProfile();
+            if (this.Name == null)
+                this.LoadName();
+            if (this.Active == null)
+                this.LoadActive();
         }
 
-        // Loads player nickname from Appconfig and returns it
-        public string LoadNickname()
+        // Loads player nickname from Appconfig
+        public bool LoadNickname()
         {
+            bool response;
             try
             {
                 this.Nickname = ConfigurationManager.AppSettings[this.ID.ToString()];
+                response = true;
             }
             catch
             {
-                Overview.Errors.Enqueue("Cannot find player nickname using ID = " + this.ID.ToString());
+                Overview.Errors.Enqueue("ID " + this.ID.ToString() + " - Cannot find player nickname in a config file");
+                response = false;
             }
-            return this.Nickname;
+            return response;
         }
 
         // Loads player profile
-        public void LoadProfile()
+        public bool LoadProfile()
         {
+            bool response;
             try
             {
                 // Getting HTML document using HtmlAgilityPack package
                 var web = new HtmlWeb();
                 this.Profile = web.Load(this.ProfileURL());
+                response = true;
             }
             catch
             {
-                Overview.Errors.Enqueue("Cannot load player profile (ID = " + this.ID.ToString() + ")");
+                Overview.Errors.Enqueue("ID " + this.ID.ToString() + " - Cannot load player profile");
+                response = false;
             }
+            return response;
         }
 
-        // Loads current player nickname and returns it
-        public string LoadName()
+        // Loads current player nickname
+        public bool LoadName()
         {
+            bool response;
             try
             {
-                this.Name = this.Profile.DocumentNode.SelectSingleNode("//h2").InnerText;
+                this.Name = this.Profile.DocumentNode.SelectSingleNode("//div[@class='cell small-12']//h2").InnerText;
+                response = true;
             }
             catch
             {
-                if (this.Profile != null)
-                    Overview.Errors.Enqueue("Cannot find player name (ID = " + this.ID.ToString() + ")");
+                Overview.Errors.Enqueue("ID " + this.ID.ToString() + " - Cannot find player name. This player may not exist");
+                response = false;
             }
-            return this.Name;
+            return response;
         }
 
         // Loads the last time a player was active
-        public string LoadActive()
+        public bool LoadActive()
         {
+            bool response;
             try
             {
                 this.Active = this.Profile.DocumentNode.SelectNodes("//span[@class='abstime']")[1].InnerText;
+                response = true;
             }
             catch
             { 
-                if(this.Profile != null)
-                    Overview.Errors.Enqueue("Cannot find the last time a player (ID = " + this.ID.ToString() + ") was active");
+                Overview.Errors.Enqueue("ID " + this.ID.ToString() + " - Cannot find the last time a player was active");
+                response = false;
             }
-            return this.Active;
+            return response;
         }
     }
 }

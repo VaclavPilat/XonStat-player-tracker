@@ -40,11 +40,12 @@ namespace XonStat_player_tracker
                 if (Int32.TryParse(stringID, out intID))
                 {
                     Player player = new Player(intID);
-                    players.Rows.Add(new object[] { player.ID, player.LoadNickname() });
+                    player.LoadNickname();
+                    players.Rows.Add(new object[] { player.ID, player.Nickname });
                     PlayerList.Add(player);
                 }
                 else
-                    Overview.Errors.Enqueue("\"" + stringID + "\" is not a valid player ID and cannot be added.");
+                    Overview.Errors.Enqueue("ID " + stringID + " - Not a valid player ID and cannot be added.");
             }
             // Starting worker thread
             var token = tokenSource.Token;
@@ -73,7 +74,7 @@ namespace XonStat_player_tracker
                     string removed;
                     Errors.TryDequeue(out removed);
                 }
-                MessageBox.Show("These errors were found while loading this form:" + errorMessage, "XonStat player tracker", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("These issues were found while loading this form:" + errorMessage, "XonStat player tracker", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 
@@ -123,7 +124,7 @@ namespace XonStat_player_tracker
         private int GetGridColumnIndex (string name)
         {
             int column = -1;
-            foreach (DataGridViewColumn dataColumn in players.Rows)
+            foreach (DataGridViewColumn dataColumn in players.Columns)
                 if (dataColumn.Name.Equals(name))
                 {
                     column = dataColumn.Index;
@@ -142,13 +143,17 @@ namespace XonStat_player_tracker
                     if (token.IsCancellationRequested)
                         token.ThrowIfCancellationRequested();
                     // Loading player profile
-                    player.LoadProfile();
-                    // Printing out player info
-                    int row = GetGridRowIndex(player);
-                    if (row >= 0)
+                    if (player.LoadProfile())
                     {
-                        players.Rows[row].Cells[GetGridColumnIndex("name")].Value = player.LoadName();
-                        players.Rows[row].Cells[GetGridColumnIndex("active")].Value = player.LoadActive();
+                        // Printing out player info
+                        int row = GetGridRowIndex(player);
+                        if (row >= 0)
+                            if (player.LoadName())
+                            {
+                                players.Rows[row].Cells[GetGridColumnIndex("name")].Value = player.Name;
+                                if(player.LoadActive())
+                                    players.Rows[row].Cells[GetGridColumnIndex("active")].Value = player.Active;
+                            }
                     }
                 }
             }
