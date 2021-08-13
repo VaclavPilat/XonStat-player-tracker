@@ -74,27 +74,41 @@ namespace XonStat_player_tracker
         {
             Thread.Sleep(1000);
             this.Invoke(new Action(() => { ChangeStatusMessage("Loading recently used names..."); }));
+            int current = 0;
+            int correct = 0;
             Dictionary<string, int> usedNames = new Dictionary<string, int>();
             var htmlWeb = new HtmlWeb();
             var gameList = htmlWeb.Load("https://stats.xonotic.org/games?player_id=" + this.Player.ID.ToString() + "&game_type_cd=overall");
             var gameLinks = gameList.DocumentNode.SelectNodes("//td[@class='text-center']/a[@class='button tiny']");
-            if(gameLinks != null)
+            if (gameLinks != null)
+            { 
                 foreach (var gameLink in gameLinks)
                 {
+                    // Checking token
                     if (token.IsCancellationRequested)
                         token.ThrowIfCancellationRequested();
+                    else
+                        Thread.Sleep(200);
+                    current++;
                     var game = htmlWeb.Load("https://stats.xonotic.org" + gameLink.Attributes["href"].Value);
                     var playerLink = game.DocumentNode.SelectSingleNode("//a[@href='/player/" + this.Player.ID.ToString() + "']");
                     string usedName = null;
                     if (playerLink != null)
                         usedName = WebUtility.HtmlDecode(playerLink.InnerText).Trim();
                     // Updating dictionary
-                    if ((usedName != null) && usedNames.ContainsKey(usedName))
-                        usedNames[usedName]++;
-                    else if (usedName != null)
-                        usedNames.Add(usedName, 1);
+                    if (usedName != null)
+                    {
+                        if (usedNames.ContainsKey(usedName))
+                            usedNames[usedName]++;
+                        else
+                            usedNames.Add(usedName, 1);
+                        correct++;
+                    }
+                    this.Invoke(new Action(() => { ChangeStatusProgress(current, correct, gameLinks.Count); }));
                     PrintPlayerNames(usedNames);
                 }
+                this.Invoke(new Action(() => { FinalStatusMessage("Finished loading recently used names", correct, gameLinks.Count); }));
+            }
             // Getting new gameList URL
             /*var newGameListURL = gameList.DocumentNode.SelectSingleNode("//div[@class='cell small-12']/a");
             if (newGameListURL != null)

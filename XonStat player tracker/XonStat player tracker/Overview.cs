@@ -38,9 +38,10 @@ namespace XonStat_player_tracker
             ChangeStatusMessage("Loading players from AppSettings...");
             // Filling DatGridView with player data
             var playerList = ConfigurationManager.AppSettings;
-            int current = 1;
+            int current = 0;
             foreach (string stringID in playerList.AllKeys)
             {
+                current++;
                 int intID;
                 if (Int32.TryParse(stringID, out intID))
                 {
@@ -50,7 +51,6 @@ namespace XonStat_player_tracker
                     PlayerList.Add(player);
                 }
                 ChangeStatusProgress(current, PlayerList.Count, playerList.Count);
-                current++;
             }
             FinalStatusMessage("Finished loading players from Appsettings", PlayerList.Count, playerList.Count);
             // Starting worker thread
@@ -145,14 +145,17 @@ namespace XonStat_player_tracker
         {
             Thread.Sleep(1000);
             this.Invoke(new Action(() => { ChangeStatusMessage("Loading player info from their profiles..."); }));
-            int current = 1;
+            int current = 0;
             int correct = 0;
             try
             {
                 foreach (Player player in PlayerList)
                 {
+                    current++;
                     if (token.IsCancellationRequested)
                         token.ThrowIfCancellationRequested();
+                    else
+                        Thread.Sleep(200);
                     // Loading player profile
                     player.LoadProfile();
                     if(player.Correct)
@@ -170,7 +173,6 @@ namespace XonStat_player_tracker
                     if(player.Correct)
                         correct++;
                     this.Invoke(new Action(() => { ChangeStatusProgress(current, correct, PlayerList.Count); }));
-                    current++;
                 }
             }
             catch (OperationCanceledException) 

@@ -72,6 +72,7 @@ namespace XonStat_player_tracker
                 // Getting HTML document using HtmlAgilityPack package
                 var web = new HtmlWeb();
                 this.Profile = web.Load(this.ProfileURL());
+                this.Correct = true;
             }
             catch
             {

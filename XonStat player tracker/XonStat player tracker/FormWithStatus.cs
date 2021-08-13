@@ -55,10 +55,7 @@ namespace XonStat_player_tracker
         }
 
         // Changing status background color
-        public void ChangeStatusColor(Color color)
-        {
-            this.status.BackColor = color;
-        }
+        private void ChangeStatusColor(Color color) => this.status.BackColor = color;
 
         // Changing form status progress
         public void ChangeStatusProgress (int current, int maximum)
