@@ -21,14 +21,16 @@ namespace XonStat_player_tracker
         // Worker thread
         private Task task;
 
-        // Cancellation token source for cancelling tasks
-        private CancellationTokenSource tokenSource = new CancellationTokenSource();
+        // Cancellation this.token source for cancelling tasks
+        //private CancellationTokenSource tokenSource = new CancellationTokenSource();
+        //private CancellationToken token;
 
         // List that contains currently open PlayerInfo forms
         public static List<PlayerInfo> OpenForms = new List<PlayerInfo>();
 
         public Overview()
         {
+            //this.token = this.tokenSource.Token;
             InitializeComponent();
             InitializeStatus();
         }
@@ -52,10 +54,9 @@ namespace XonStat_player_tracker
                 }
                 ChangeStatusProgress(current, PlayerList.Count, playerList.Count);
             }
-            FinalStatusMessage("Finished loading players from Appsettings", PlayerList.Count, playerList.Count);
+            ResultStatusMessage("Finished loading players from Appsettings", PlayerList.Count, playerList.Count);
             // Starting worker thread
-            var token = tokenSource.Token;
-            task = new Task(() => LoadInfoFromProfiles(token));
+            task = new Task(() => LoadInfoFromProfiles());
             task.Start();
         }
 
@@ -128,21 +129,22 @@ namespace XonStat_player_tracker
         }
 
         // Loading all player profiles
-        private void LoadInfoFromProfiles(CancellationToken token)
+        private void LoadInfoFromProfiles()
         {
+            //this.token.ThrowIfCancellationRequested();
             Thread.Sleep(1000);
-            this.Invoke(new Action(() => { ChangeStatusMessage("Loading player info from their profiles..."); }));
+            this.Invoke(new Action(() => { 
+                ChangeStatusMessage("Loading player info from their profiles..."); 
+            }));
             int current = 0;
             int correct = 0;
             try
             {
                 foreach (Player player in PlayerList)
                 {
+                    //this.token.ThrowIfCancellationRequested();
+                    Thread.Sleep(200);
                     current++;
-                    if (token.IsCancellationRequested)
-                        token.ThrowIfCancellationRequested();
-                    else
-                        Thread.Sleep(200);
                     // Loading player profile
                     player.LoadProfile();
                     if(player.Correct)
@@ -160,22 +162,23 @@ namespace XonStat_player_tracker
                     }
                     if(player.Correct)
                         correct++;
-                    this.Invoke(new Action(() => { ChangeStatusProgress(current, correct, PlayerList.Count); }));
+                    this.Invoke(new Action(() => { 
+                        ChangeStatusProgress(current, correct, PlayerList.Count); 
+                    }));
                 }
+                this.Invoke(new Action(() => { 
+                    ResultStatusMessage("Finished loading data from player profiles", correct, PlayerList.Count); 
+                }));
             }
-            catch (OperationCanceledException) 
-            {
-                return;
-            }
-            this.Invoke(new Action(() => { FinalStatusMessage("Finished loading data from player profiles", correct, PlayerList.Count); }));
+            catch (OperationCanceledException) { }
         }
 
         // Actions performed before closing the form
         private void Overview_FormClosing(object sender, FormClosingEventArgs e)
         {
-            tokenSource.Cancel();
-            task.Wait();
-            tokenSource.Dispose();
+            //this.tokenSource.Cancel();
+            //task.Wait();
+            //this.tokenSource.Dispose();
         }
     }
 }

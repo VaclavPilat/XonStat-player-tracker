@@ -23,50 +23,81 @@ namespace XonStat_player_tracker
             this.Controls.Add(this.status);
         }
 
+        // If changing status is allowed
+        private bool ChangingStatusAllowed = true;
+
         // Variable for holding status message
         private string StatusMessage = null;
 
         // Changing form status message
         public void ChangeStatusMessage (string message)
         {
-            this.StatusMessage = message;
-            this.status.Text = this.StatusMessage;
-            ChangeStatusColor(Color.Khaki);
+            if (this.ChangingStatusAllowed)
+            {
+                this.StatusMessage = message;
+                this.status.Text = this.StatusMessage;
+                ChangeStatusColor(Color.Khaki);
+            }
         }
 
         // Changing status message (with final results)
-        public void FinalStatusMessage (string message, int correct, int maximum)
+        public void ResultStatusMessage (string message, int correct, int maximum)
         {
-            this.StatusMessage = message + " (" + correct.ToString() + " successful out of " + maximum.ToString() + ")";
-            this.status.Text = this.StatusMessage;
-            if(correct == maximum)
-                ChangeStatusColor(Color.LightGreen);
-            else
-                ChangeStatusColor(Color.LightSalmon);
+            if (this.ChangingStatusAllowed)
+            {
+                this.StatusMessage = message + " (" + correct.ToString() + " successful out of " + maximum.ToString() + ")";
+                this.status.Text = this.StatusMessage;
+                if (correct == maximum)
+                    ChangeStatusColor(Color.LightGreen);
+                else
+                    ChangeStatusColor(Color.LightSalmon);
+            }
         }
-        public void FinalStatusMessage(string message, bool correct)
+
+        public void ResultStatusMessage (string message, bool correct)
         {
-            this.StatusMessage = message;
-            this.status.Text = this.StatusMessage;
-            if (correct)
-                ChangeStatusColor(Color.LightGreen);
-            else
-                ChangeStatusColor(Color.LightSalmon);
+            if (this.ChangingStatusAllowed)
+            {
+                this.StatusMessage = message;
+                this.status.Text = this.StatusMessage;
+                if (correct)
+                    ChangeStatusColor(Color.LightGreen);
+                else
+                    ChangeStatusColor(Color.LightSalmon);
+            }
         }
 
         // Changing status background color
-        private void ChangeStatusColor(Color color) => this.status.BackColor = color;
+        private void ChangeStatusColor(Color color)
+        {
+            if (this.ChangingStatusAllowed)
+                this.status.BackColor = color;
+        }
 
         // Changing form status progress
         public void ChangeStatusProgress (int current, int maximum)
         {
-            this.status.Text = this.StatusMessage + " (" + current.ToString() + " out of " + maximum.ToString() + ")";
-            ChangeStatusColor(Color.Khaki);
+            if (this.ChangingStatusAllowed)
+            {
+                this.status.Text = this.StatusMessage + " (" + current.ToString() + " out of " + maximum.ToString() + ")";
+                ChangeStatusColor(Color.Khaki);
+            }
         }
-        public void ChangeStatusProgress(int current, int correct, int maximum)
+        public void ChangeStatusProgress (int current, int correct, int maximum)
         {
-            this.status.Text = this.StatusMessage + " (" + current.ToString() + " out of " + maximum.ToString() + " done, " + correct.ToString() + " successful)";
-            ChangeStatusColor(Color.Khaki);
+            if (this.ChangingStatusAllowed)
+            {
+                this.status.Text = this.StatusMessage + " (" + current.ToString() + " out of " + maximum.ToString() + " done, " + correct.ToString() + " successful)";
+                ChangeStatusColor(Color.Khaki);
+            }
+        }
+
+        // Status that announces form closing
+        public void ClosingStatusMessage ()
+        {
+            this.status.Text = "Waiting for background tasks to finish...";
+            ChangeStatusColor(Color.LightSkyBlue);
+            this.ChangingStatusAllowed = false;
         }
     }
 }
