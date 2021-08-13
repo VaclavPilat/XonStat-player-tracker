@@ -13,7 +13,7 @@ using HtmlAgilityPack;
 
 namespace XonStat_player_tracker
 {
-    public partial class PlayerInfo : Form
+    public partial class PlayerInfo : FormWithStatus
     {
         // Player reference
         public Player Player;
@@ -30,6 +30,7 @@ namespace XonStat_player_tracker
         {
             this.Player = player;
             InitializeComponent();
+            InitializeStatus();
         }
 
         // Starting worker thread
@@ -45,6 +46,7 @@ namespace XonStat_player_tracker
         {
             try
             {
+                this.Invoke(new Action(() => { ChangeStatusMessage("Loading player info from his profile..."); }));
                 this.Player.LoadAll();
                 // Printing out variables
                 this.Invoke(new Action(() => { 
@@ -54,6 +56,10 @@ namespace XonStat_player_tracker
                     this.active.Text = this.Player.Active;
                     this.since.Text = this.Player.Since;
                     this.time.Text = this.Player.Time;
+                    if (this.Player.Correct)
+                        FinalStatusMessage("Successfully loaded information from player profile.", true);
+                    else
+                        FinalStatusMessage("Some issues occured when loading information from player profile.", false);
                 }));
                 LoadPlayerNames(token);
             }
@@ -66,6 +72,8 @@ namespace XonStat_player_tracker
         // Getting recently used names
         private void LoadPlayerNames(CancellationToken token)
         {
+            Thread.Sleep(1000);
+            this.Invoke(new Action(() => { ChangeStatusMessage("Loading recently used names..."); }));
             Dictionary<string, int> usedNames = new Dictionary<string, int>();
             var htmlWeb = new HtmlWeb();
             var gameList = htmlWeb.Load("https://stats.xonotic.org/games?player_id=" + this.Player.ID.ToString() + "&game_type_cd=overall");

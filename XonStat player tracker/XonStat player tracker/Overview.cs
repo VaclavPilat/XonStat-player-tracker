@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -35,7 +35,7 @@ namespace XonStat_player_tracker
 
         private void Overview_Load(object sender, EventArgs e)
         {
-            ChangeStatus("Loading players from AppSettings...");
+            ChangeStatusMessage("Loading players from AppSettings...");
             // Filling DatGridView with player data
             var playerList = ConfigurationManager.AppSettings;
             int current = 1;
@@ -52,7 +52,7 @@ namespace XonStat_player_tracker
                 ChangeStatusProgress(current, PlayerList.Count, playerList.Count);
                 current++;
             }
-            ChangeStatus("Finished loading players from Appsettings", PlayerList.Count, playerList.Count);
+            FinalStatusMessage("Finished loading players from Appsettings", PlayerList.Count, playerList.Count);
             // Starting worker thread
             var token = tokenSource.Token;
             task = new Task(() => LoadInfoFromProfiles(token));
@@ -144,7 +144,7 @@ namespace XonStat_player_tracker
         private void LoadInfoFromProfiles(CancellationToken token)
         {
             Thread.Sleep(1000);
-            this.Invoke(new Action(() => { ChangeStatus("Loading player info from their profiles..."); }));
+            this.Invoke(new Action(() => { ChangeStatusMessage("Loading player info from their profiles..."); }));
             int current = 1;
             int correct = 0;
             try
@@ -178,7 +178,7 @@ namespace XonStat_player_tracker
             {
                 return;
             }
-            this.Invoke(new Action(() => { ChangeStatus("Finished loading data from player profiles", correct, PlayerList.Count); }));
+            this.Invoke(new Action(() => { FinalStatusMessage("Finished loading data from player profiles", correct, PlayerList.Count); }));
         }
 
         // Actions performed before closing the form
