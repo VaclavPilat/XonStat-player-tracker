@@ -39,7 +39,6 @@ namespace XonStat_player_tracker
             this.active = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.profile = new System.Windows.Forms.DataGridViewButtonColumn();
             this.info = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.status = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.players)).BeginInit();
             this.SuspendLayout();
             // 
@@ -133,23 +132,11 @@ namespace XonStat_player_tracker
             this.info.Text = "More information";
             this.info.UseColumnTextForButtonValue = true;
             // 
-            // status
-            // 
-            this.status.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.status.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.status.Location = new System.Drawing.Point(0, 528);
-            this.status.Name = "status";
-            this.status.Size = new System.Drawing.Size(1182, 25);
-            this.status.TabIndex = 1;
-            this.status.Text = "Status";
-            this.status.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
             // Overview
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1182, 553);
-            this.Controls.Add(this.status);
             this.Controls.Add(this.players);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Overview";
@@ -171,7 +158,6 @@ namespace XonStat_player_tracker
         private System.Windows.Forms.DataGridViewTextBoxColumn active;
         private System.Windows.Forms.DataGridViewButtonColumn profile;
         private System.Windows.Forms.DataGridViewButtonColumn info;
-        private System.Windows.Forms.Label status;
     }
 }
 

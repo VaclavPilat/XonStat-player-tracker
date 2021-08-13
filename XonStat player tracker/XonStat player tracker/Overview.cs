@@ -13,7 +13,7 @@ using System.Configuration;
 
 namespace XonStat_player_tracker
 {
-    public partial class Overview : Form
+    public partial class Overview : FormWithStatus
     {
         // List of players
         private List<Player> PlayerList = new List<Player>();
@@ -27,7 +27,11 @@ namespace XonStat_player_tracker
         // List that contains currently open PlayerInfo forms
         public static List<PlayerInfo> OpenForms = new List<PlayerInfo>();
 
-        public Overview() => InitializeComponent();
+        public Overview()
+        {
+            InitializeComponent();
+            InitializeStatus();
+        }
 
         private void Overview_Load(object sender, EventArgs e)
         {
@@ -183,45 +187,6 @@ namespace XonStat_player_tracker
             tokenSource.Cancel();
             task.Wait();
             tokenSource.Dispose();
-        }
-
-        private string StatusMessage = null;
-
-        // Changing form status message
-        public void ChangeStatus (string message)
-        {
-            this.StatusMessage = message;
-            this.status.Text = this.StatusMessage;
-            ChangeStatusColor(Color.Khaki);
-        }
-
-        // Changing status message (with final results)
-        public void ChangeStatus (string message, int correct, int maximum)
-        {
-            this.StatusMessage = message + " (" + correct.ToString() + " successful out of " + maximum.ToString() + ")";
-            this.status.Text = this.StatusMessage;
-            if(correct == maximum)
-                ChangeStatusColor(Color.LightGreen);
-            else
-                ChangeStatusColor(Color.LightSalmon);
-        }
-
-        // Changing status background color
-        public void ChangeStatusColor(Color color)
-        {
-            this.status.BackColor = color;
-        }
-
-        // Changing form status progress
-        public void ChangeStatusProgress (int current, int maximum)
-        {
-            this.status.Text = this.StatusMessage + " (" + current.ToString() + " out of " + maximum.ToString() + ")";
-            ChangeStatusColor(Color.Khaki);
-        }
-        public void ChangeStatusProgress(int current, int correct, int maximum)
-        {
-            this.status.Text = this.StatusMessage + " (" + current.ToString() + " out of " + maximum.ToString() + " done, " + correct.ToString() + " successful)";
-            ChangeStatusColor(Color.Khaki);
         }
     }
 }
