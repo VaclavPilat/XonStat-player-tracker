@@ -127,19 +127,6 @@ namespace XonStat_player_tracker
             return row;
         }
 
-        // Getting index of a specified column
-        private int GetGridColumnIndex (string name)
-        {
-            int column = -1;
-            foreach (DataGridViewColumn dataColumn in players.Columns)
-                if (dataColumn.Name.Equals(name))
-                {
-                    column = dataColumn.Index;
-                    break;
-                }
-            return column;
-        }
-
         // Loading all player profiles
         private void LoadInfoFromProfiles(CancellationToken token)
         {
@@ -165,9 +152,10 @@ namespace XonStat_player_tracker
                         if (row >= 0)
                         { 
                             player.LoadName();
-                            players.Rows[row].Cells[GetGridColumnIndex("name")].Value = player.Name;
+                            players.Rows[row].Cells["name"].Value = player.Name;
                             player.LoadActive();
-                            players.Rows[row].Cells[GetGridColumnIndex("active")].Value = player.Active;
+                            players.Rows[row].Cells["active"].Value = player.Active;
+                            players.Rows[row].Cells["active"].Style = new DataGridViewCellStyle { ForeColor = player.GetActiveColor() };
                         }
                     }
                     if(player.Correct)

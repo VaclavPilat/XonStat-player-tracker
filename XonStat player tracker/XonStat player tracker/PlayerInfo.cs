@@ -48,25 +48,31 @@ namespace XonStat_player_tracker
             {
                 this.Invoke(new Action(() => { ChangeStatusMessage("Loading player info from his profile..."); }));
                 this.Player.LoadAll();
-                // Printing out variables
-                this.Invoke(new Action(() => { 
-                    this.id.Text = this.Player.ID.ToString();
-                    this.nickname.Text = this.Player.Nickname;
-                    this.name.Text = this.Player.Name;
-                    this.active.Text = this.Player.Active;
-                    this.since.Text = this.Player.Since;
-                    this.time.Text = this.Player.Time;
-                    if (this.Player.Correct)
-                        FinalStatusMessage("Successfully loaded information from player profile.", true);
-                    else
-                        FinalStatusMessage("Some issues occured when loading information from player profile.", false);
-                }));
+                PrintPlayerVariables();
                 LoadPlayerNames(token);
             }
             catch (OperationCanceledException)
             {
                 return;
             }
+        }
+
+        // Printing out variables
+        private void PrintPlayerVariables ()
+        {
+            this.Invoke(new Action(() => {
+                this.id.Text = this.Player.ID.ToString();
+                this.nickname.Text = this.Player.Nickname;
+                this.name.Text = this.Player.Name;
+                this.active.Text = this.Player.Active;
+                this.active.ForeColor = this.Player.GetActiveColor();
+                this.since.Text = this.Player.Since;
+                this.time.Text = this.Player.Time;
+                if (this.Player.Correct)
+                    FinalStatusMessage("Successfully loaded information from player profile.", true);
+                else
+                    FinalStatusMessage("Some issues occured when loading information from player profile.", false);
+            }));
         }
 
         // Getting recently used names

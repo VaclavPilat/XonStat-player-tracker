@@ -7,6 +7,7 @@ using System.Windows.Forms;
 using System.Configuration;
 using System.Net;
 using HtmlAgilityPack;
+using System.Drawing;
 
 namespace XonStat_player_tracker
 {
@@ -32,6 +33,23 @@ namespace XonStat_player_tracker
         public string ProfileURL()
         {
             return "https://stats.xonotic.org/player/" + this.ID.ToString();
+        }
+
+        public Color GetActiveColor ()
+        {
+            Color color = Color.Black;
+            if(this.Active != null)
+                if (this.Active.Contains("second") || this.Active.Contains("minute"))
+                    color = Color.DarkOrange;
+                else if (this.Active.Contains("hour"))
+                    color = Color.Goldenrod;
+                else if (this.Active.Contains("day"))
+                    color = Color.DodgerBlue;
+                else if (this.Active.Contains("month"))
+                    color = Color.DimGray;
+                else
+                    color = Color.Gray;
+            return color;
         }
 
         // Loads all variables
