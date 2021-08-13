@@ -12,6 +12,7 @@ namespace XonStat_player_tracker
 {
     public class Player
     {
+        public bool Correct { get; set;}
         public int ID { get; set; }
         public string Nickname { get; set; }
         public string Name { get; set; }
@@ -20,10 +21,12 @@ namespace XonStat_player_tracker
         public string Time { get; set; }
         private HtmlAgilityPack.HtmlDocument Profile { get; set; }
 
-        public Player() { }
-
         // Constructor with int ID
-        public Player(int id) => this.ID = id;
+        public Player(int id)
+        {
+            this.ID = id;
+            this.Correct = true;
+        }
 
         // Gets profile URL
         public string ProfileURL()
@@ -59,7 +62,7 @@ namespace XonStat_player_tracker
             }
             catch
             {
-                Overview.Errors.Enqueue("ID " + this.ID.ToString() + " - Cannot find player nickname in a config file");
+                this.Correct = false;
                 response = false;
             }
             return response;
@@ -78,7 +81,7 @@ namespace XonStat_player_tracker
             }
             catch
             {
-                Overview.Errors.Enqueue("ID " + this.ID.ToString() + " - Cannot load player profile");
+                this.Correct = false;
                 response = false;
             }
             return response;
@@ -96,7 +99,7 @@ namespace XonStat_player_tracker
             }
             catch
             {
-                Overview.Errors.Enqueue("ID " + this.ID.ToString() + " - Cannot find player name. This player may not exist");
+                this.Correct = false;
                 response = false;
             }
             return response;
@@ -112,8 +115,8 @@ namespace XonStat_player_tracker
                 response = true;
             }
             catch
-            { 
-                Overview.Errors.Enqueue("ID " + this.ID.ToString() + " - Cannot find the last time a player was active");
+            {
+                this.Correct = false;
                 response = false;
             }
             return response;
@@ -129,8 +132,8 @@ namespace XonStat_player_tracker
                 response = true;
             }
             catch
-            { 
-                Overview.Errors.Enqueue("ID " + this.ID.ToString() + " - Cannot find the time a player started playing");
+            {
+                this.Correct = false;
                 response = false;
             }
             return response;
@@ -155,8 +158,8 @@ namespace XonStat_player_tracker
                 response = true;
             }
             catch
-            { 
-                Overview.Errors.Enqueue("ID " + this.ID.ToString() + " - Cannot find total time spent");
+            {
+                this.Correct = false;
                 response = false;
             }
             return response;

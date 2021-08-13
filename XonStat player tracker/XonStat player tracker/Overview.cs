@@ -19,9 +19,6 @@ namespace XonStat_player_tracker
         // List of players
         private List<Player> PlayerList = new List<Player>();
 
-        // List of startup errors
-        public static ConcurrentQueue<string> Errors = new ConcurrentQueue<string>();
-
         // Worker thread
         private Task task;
 
@@ -57,26 +54,6 @@ namespace XonStat_player_tracker
             var token = tokenSource.Token;
             task = new Task(() => LoadInfoFromProfiles(token));
             task.Start();
-        }
-
-        // Runs after _Load()
-        private void Overview_Shown(object sender, EventArgs e) => ShowErrors();
-
-        // Showing multiple errors in one dialog
-        public static void ShowErrors()
-        {
-            string errorMessage = "";
-            if (Errors.Count > 0)
-            {
-                int index = 1;
-                foreach (string error in Errors)
-                {
-                    errorMessage += "\n" + index.ToString() + ") " + error;
-                    string removed;
-                    Errors.TryDequeue(out removed);
-                }
-                MessageBox.Show("These issues were found while loading this form:" + errorMessage, "XonStat player tracker", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            }
         }
 
         // Actions after clicking on a cell value
@@ -163,6 +140,7 @@ namespace XonStat_player_tracker
         // Loading all player profiles
         private void LoadInfoFromProfiles(CancellationToken token)
         {
+            Thread.Sleep(1000);
             this.Invoke(new Action(() => { ChangeStatus("Loading player info from their profiles..."); }));
             int current = 1;
             int correct = 0;
@@ -182,13 +160,15 @@ namespace XonStat_player_tracker
                             {
                                 players.Rows[row].Cells[GetGridColumnIndex("name")].Value = player.Name;
                                 if (player.LoadActive())
+                                {
                                     players.Rows[row].Cells[GetGridColumnIndex("active")].Value = player.Active;
+                                }
                             }
-                        correct++;
                     }
+                    if(player.Correct)
+                        correct++;
                     this.Invoke(new Action(() => { ChangeStatusProgress(current, correct, PlayerList.Count); }));
                     current++;
-                    Thread.Sleep(500);
                 }
             }
             catch (OperationCanceledException) 
@@ -213,7 +193,10 @@ namespace XonStat_player_tracker
         {
             this.StatusMessage = message;
             this.status.Text = this.StatusMessage;
+            ChangeStatusColor(Color.Khaki);
         }
+
+        // Changing status message (with final results)
         public void ChangeStatus (string message, int correct, int maximum)
         {
             this.StatusMessage = message + " (" + correct.ToString() + " successful out of " + maximum.ToString() + ")";
@@ -234,12 +217,12 @@ namespace XonStat_player_tracker
         public void ChangeStatusProgress (int current, int maximum)
         {
             this.status.Text = this.StatusMessage + " (" + current.ToString() + " out of " + maximum.ToString() + ")";
-            ChangeStatusColor(Color.LightYellow);
+            ChangeStatusColor(Color.Khaki);
         }
         public void ChangeStatusProgress(int current, int correct, int maximum)
         {
             this.status.Text = this.StatusMessage + " (" + current.ToString() + " out of " + maximum.ToString() + " done, " + correct.ToString() + " successful)";
-            ChangeStatusColor(Color.LightYellow);
+            ChangeStatusColor(Color.Khaki);
         }
     }
 }
