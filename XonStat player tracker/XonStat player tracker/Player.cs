@@ -39,110 +39,89 @@ namespace XonStat_player_tracker
         {
             if (this.Nickname == null)
                 this.LoadNickname();
-            if (this.Profile == null)
+            if (this.Profile == null || !this.Correct)
                 this.LoadProfile();
-            if (this.Name == null)
+            if (this.Name == null || !this.Correct)
                 this.LoadName();
-            if (this.Active == null)
+            if (this.Active == null || !this.Correct)
                 this.LoadActive();
-            if (this.Since == null)
+            if (this.Since == null || !this.Correct)
                 this.LoadSince();
-            if (this.Time == null)
+            if (this.Time == null || !this.Correct)
                 this.LoadTime();
         }
 
         // Loads player nickname from Appconfig
-        public bool LoadNickname()
+        public void LoadNickname()
         {
-            bool response;
             try
             {
                 this.Nickname = ConfigurationManager.AppSettings[this.ID.ToString()];
-                response = true;
             }
             catch
             {
                 this.Correct = false;
-                response = false;
             }
-            return response;
         }
 
         // Loads player profile
-        public bool LoadProfile()
+        public void LoadProfile()
         {
-            bool response;
             try
             {
                 // Getting HTML document using HtmlAgilityPack package
                 var web = new HtmlWeb();
                 this.Profile = web.Load(this.ProfileURL());
-                response = true;
             }
             catch
             {
                 this.Correct = false;
-                response = false;
             }
-            return response;
         }
 
         // Loads current player nickname
-        public bool LoadName()
+        public void LoadName()
         {
-            bool response;
             try
             {
                 string rawName = this.Profile.DocumentNode.SelectSingleNode("//div[@class='cell small-12']//h2").InnerText;
                 this.Name = WebUtility.HtmlDecode(rawName);
-                response = true;
             }
             catch
             {
                 this.Correct = false;
-                response = false;
             }
-            return response;
         }
 
         // Loads the last time a player was active
-        public bool LoadActive()
+        public void LoadActive()
         {
-            bool response;
             try
             {
                 this.Active = this.Profile.DocumentNode.SelectNodes("//span[@class='abstime']")[1].InnerText;
-                response = true;
             }
             catch
             {
                 this.Correct = false;
-                response = false;
             }
-            return response;
         }
 
         // Loads the time a player joined his first game
-        public bool LoadSince()
+        public void LoadSince()
         {
-            bool response;
             try
             {
                 this.Since = this.Profile.DocumentNode.SelectNodes("//span[@class='abstime']")[0].InnerText;
-                response = true;
             }
             catch
             {
                 this.Correct = false;
-                response = false;
             }
-            return response;
         }
 
         // Loads the total time spent (in hours)
-        public bool LoadTime()
+        public void LoadTime()
         {
-            bool response;
             try
             {
                 string timePlayedString = this.Profile.DocumentNode.SelectNodes("//div[@class='cell small-6']/p")[1].InnerText.Trim();
@@ -155,14 +134,11 @@ namespace XonStat_player_tracker
                     else if (timeArray[i + 1].Contains("hours"))
                         hours += Int32.Parse(timeArray[i]);
                 this.Time = hours.ToString() + " hours";
-                response = true;
             }
             catch
             {
                 this.Correct = false;
-                response = false;
             }
-            return response;
         }
     }
 }

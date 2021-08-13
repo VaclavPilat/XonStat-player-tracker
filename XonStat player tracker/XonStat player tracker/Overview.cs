@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -154,19 +154,18 @@ namespace XonStat_player_tracker
                     if (token.IsCancellationRequested)
                         token.ThrowIfCancellationRequested();
                     // Loading player profile
-                    if (player.LoadProfile())
+                    player.LoadProfile();
+                    if(player.Correct)
                     {
                         // Printing out player info
                         int row = GetGridRowIndex(player);
                         if (row >= 0)
-                            if (player.LoadName())
-                            {
-                                players.Rows[row].Cells[GetGridColumnIndex("name")].Value = player.Name;
-                                if (player.LoadActive())
-                                {
-                                    players.Rows[row].Cells[GetGridColumnIndex("active")].Value = player.Active;
-                                }
-                            }
+                        { 
+                            player.LoadName();
+                            players.Rows[row].Cells[GetGridColumnIndex("name")].Value = player.Name;
+                            player.LoadActive();
+                            players.Rows[row].Cells[GetGridColumnIndex("active")].Value = player.Active;
+                        }
                     }
                     if(player.Correct)
                         correct++;
