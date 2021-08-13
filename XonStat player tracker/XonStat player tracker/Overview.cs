@@ -35,8 +35,10 @@ namespace XonStat_player_tracker
 
         private void Overview_Load(object sender, EventArgs e)
         {
+            ChangeStatus("Loading players from AppSettings...");
             // Filling DatGridView with player data
             var playerList = ConfigurationManager.AppSettings;
+            int current = 1;
             foreach (string stringID in playerList.AllKeys)
             {
                 int intID;
@@ -47,9 +49,10 @@ namespace XonStat_player_tracker
                     players.Rows.Add(new object[] { player.ID, player.Nickname });
                     PlayerList.Add(player);
                 }
-                else
-                    Overview.Errors.Enqueue("ID " + stringID + " - Not a valid player ID and cannot be added.");
+                ChangeStatusProgress(current, PlayerList.Count, playerList.Count);
+                current++;
             }
+            ChangeStatus("Finished loading players from Appsettings", PlayerList.Count, playerList.Count);
             // Starting worker thread
             var token = tokenSource.Token;
             task = new Task(() => LoadInfoFromProfiles(token));
@@ -160,6 +163,9 @@ namespace XonStat_player_tracker
         // Loading all player profiles
         private void LoadInfoFromProfiles(CancellationToken token)
         {
+            this.Invoke(new Action(() => { ChangeStatus("Loading player info from their profiles..."); }));
+            int current = 1;
+            int correct = 0;
             try
             {
                 foreach (Player player in PlayerList)
@@ -178,21 +184,62 @@ namespace XonStat_player_tracker
                                 if (player.LoadActive())
                                     players.Rows[row].Cells[GetGridColumnIndex("active")].Value = player.Active;
                             }
+                        correct++;
                     }
+                    this.Invoke(new Action(() => { ChangeStatusProgress(current, correct, PlayerList.Count); }));
+                    current++;
+                    Thread.Sleep(500);
                 }
             }
             catch (OperationCanceledException) 
             {
                 return;
             }
-            this.Invoke(new Action(() => { ShowErrors(); }));
+            this.Invoke(new Action(() => { ChangeStatus("Finished loading data from player profiles", correct, PlayerList.Count); }));
         }
 
+        // Actions performed before closing the form
         private void Overview_FormClosing(object sender, FormClosingEventArgs e)
         {
             tokenSource.Cancel();
             task.Wait();
             tokenSource.Dispose();
+        }
+
+        private string StatusMessage = null;
+
+        // Changing form status message
+        public void ChangeStatus (string message)
+        {
+            this.StatusMessage = message;
+            this.status.Text = this.StatusMessage;
+        }
+        public void ChangeStatus (string message, int correct, int maximum)
+        {
+            this.StatusMessage = message + " (" + correct.ToString() + " successful out of " + maximum.ToString() + ")";
+            this.status.Text = this.StatusMessage;
+            if(correct == maximum)
+                ChangeStatusColor(Color.LightGreen);
+            else
+                ChangeStatusColor(Color.LightSalmon);
+        }
+
+        // Changing status background color
+        public void ChangeStatusColor(Color color)
+        {
+            this.status.BackColor = color;
+        }
+
+        // Changing form status progress
+        public void ChangeStatusProgress (int current, int maximum)
+        {
+            this.status.Text = this.StatusMessage + " (" + current.ToString() + " out of " + maximum.ToString() + ")";
+            ChangeStatusColor(Color.LightYellow);
+        }
+        public void ChangeStatusProgress(int current, int correct, int maximum)
+        {
+            this.status.Text = this.StatusMessage + " (" + current.ToString() + " out of " + maximum.ToString() + " done, " + correct.ToString() + " successful)";
+            ChangeStatusColor(Color.LightYellow);
         }
     }
 }

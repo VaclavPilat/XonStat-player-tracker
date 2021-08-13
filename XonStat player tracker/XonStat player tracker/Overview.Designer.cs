@@ -29,8 +29,8 @@ namespace XonStat_player_tracker
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Overview));
             this.players = new System.Windows.Forms.DataGridView();
             this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -39,6 +39,7 @@ namespace XonStat_player_tracker
             this.active = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.profile = new System.Windows.Forms.DataGridViewButtonColumn();
             this.info = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.status = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.players)).BeginInit();
             this.SuspendLayout();
             // 
@@ -106,9 +107,9 @@ namespace XonStat_player_tracker
             // profile
             // 
             this.profile.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.LightSkyBlue;
-            this.profile.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.LightSkyBlue;
+            this.profile.DefaultCellStyle = dataGridViewCellStyle3;
             this.profile.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.profile.HeaderText = "Profile";
             this.profile.MinimumWidth = 150;
@@ -121,9 +122,9 @@ namespace XonStat_player_tracker
             // info
             // 
             this.info.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.LemonChiffon;
-            this.info.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle4.BackColor = System.Drawing.Color.LemonChiffon;
+            this.info.DefaultCellStyle = dataGridViewCellStyle4;
             this.info.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.info.HeaderText = "Player info";
             this.info.MinimumWidth = 150;
@@ -132,11 +133,23 @@ namespace XonStat_player_tracker
             this.info.Text = "More information";
             this.info.UseColumnTextForButtonValue = true;
             // 
+            // status
+            // 
+            this.status.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.status.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.status.Location = new System.Drawing.Point(0, 528);
+            this.status.Name = "status";
+            this.status.Size = new System.Drawing.Size(1182, 25);
+            this.status.TabIndex = 1;
+            this.status.Text = "Status";
+            this.status.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // Overview
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1182, 553);
+            this.Controls.Add(this.status);
             this.Controls.Add(this.players);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Overview";
@@ -159,6 +172,7 @@ namespace XonStat_player_tracker
         private System.Windows.Forms.DataGridViewTextBoxColumn active;
         private System.Windows.Forms.DataGridViewButtonColumn profile;
         private System.Windows.Forms.DataGridViewButtonColumn info;
+        private System.Windows.Forms.Label status;
     }
 }
 
