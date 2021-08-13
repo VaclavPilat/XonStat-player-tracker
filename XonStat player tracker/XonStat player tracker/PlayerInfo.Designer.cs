@@ -243,7 +243,6 @@ namespace XonStat_player_tracker
             this.Text = "XonStat player tracker - Player info";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.PlayerInfo_FormClosing);
             this.Load += new System.EventHandler(this.PlayerInfo_Load);
-            this.Shown += new System.EventHandler(this.PlayerInfo_Shown);
             this.playerTable.ResumeLayout(false);
             this.playerTable.PerformLayout();
             this.ResumeLayout(false);

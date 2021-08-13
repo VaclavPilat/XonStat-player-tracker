@@ -40,9 +40,6 @@ namespace XonStat_player_tracker
             task.Start();
         }
 
-        // Showing errors after loading
-        private void PlayerInfo_Shown(object sender, EventArgs e) => Overview.ShowErrors();
-
         // Loading player info
         private void LoadPlayerInfo(CancellationToken token)
         {
@@ -64,7 +61,6 @@ namespace XonStat_player_tracker
             {
                 return;
             }
-            this.Invoke(new Action(() => { Overview.ShowErrors(); }));
         }
 
         // Getting recently used names
@@ -89,8 +85,12 @@ namespace XonStat_player_tracker
                         usedNames[usedName]++;
                     else if (usedName != null)
                         usedNames.Add(usedName, 1);
+                    PrintPlayerNames(usedNames);
                 }
-            PrintPlayerNames(usedNames);
+            // Getting new gameList URL
+            /*var newGameListURL = gameList.DocumentNode.SelectSingleNode("//div[@class='cell small-12']/a");
+            if (newGameListURL != null)
+                gameListURL = "https://stats.xonotic.org" + WebUtility.HtmlDecode(newGameListURL.Attributes["href"].Value);*/
         }
 
         // Printing out Dictionary that contains player names

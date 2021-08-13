@@ -157,7 +157,6 @@ namespace XonStat_player_tracker
             this.Text = "XonStat player tracker - Overview";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Overview_FormClosing);
             this.Load += new System.EventHandler(this.Overview_Load);
-            this.Shown += new System.EventHandler(this.Overview_Shown);
             ((System.ComponentModel.ISupportInitialize)(this.players)).EndInit();
             this.ResumeLayout(false);
 
