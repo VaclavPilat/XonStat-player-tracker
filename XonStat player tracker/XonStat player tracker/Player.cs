@@ -55,18 +55,11 @@ namespace XonStat_player_tracker
         // Loads all variables
         public void LoadAll ()
         {
-            if (this.Nickname == null)
-                this.LoadNickname();
-            if (this.Profile == null || !this.Correct)
-                this.LoadProfile();
-            if (this.Name == null || !this.Correct)
-                this.LoadName();
-            if (this.Active == null || !this.Correct)
-                this.LoadActive();
-            if (this.Since == null || !this.Correct)
-                this.LoadSince();
-            if (this.Time == null || !this.Correct)
-                this.LoadTime();
+            this.LoadProfile();
+            this.LoadName();
+            this.LoadActive();
+            this.LoadSince();
+            this.LoadTime();
         }
 
         // Loads player nickname from Appconfig

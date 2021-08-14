@@ -45,6 +45,7 @@ namespace XonStat_player_tracker
         {
             this.Invoke(new Action(() => { ChangeStatusMessage("Loading player info from his profile..."); }));
             this.Player.LoadAll();
+            this.token.ThrowIfCancellationRequested();
             PrintPlayerVariables();
             LoadPlayerNames();
         }
@@ -72,8 +73,8 @@ namespace XonStat_player_tracker
         {
             try
             {
-                this.token.ThrowIfCancellationRequested();
                 Thread.Sleep(1000);
+                this.token.ThrowIfCancellationRequested();
                 this.Invoke(new Action(() => { ChangeStatusMessage("Loading recently used names..."); }));
                 int current = 0;
                 int correct = 0;
