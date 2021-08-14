@@ -1,4 +1,4 @@
-﻿
+
 namespace XonStat_player_tracker
 {
     partial class PlayerInfo
@@ -42,7 +42,7 @@ namespace XonStat_player_tracker
             this.time_label = new System.Windows.Forms.Label();
             this.time = new System.Windows.Forms.Label();
             this.names_label = new System.Windows.Forms.Label();
-            this.names = new System.Windows.Forms.Label();
+            this.names = new System.Windows.Forms.TextBox();
             this.playerTable.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -222,15 +222,17 @@ namespace XonStat_player_tracker
             // 
             // names
             // 
-            this.names.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.names.AutoSize = true;
-            this.names.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.names.Location = new System.Drawing.Point(244, 240);
+            this.names.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.names.Location = new System.Drawing.Point(244, 243);
+            this.names.Multiline = true;
             this.names.Name = "names";
-            this.names.Size = new System.Drawing.Size(235, 20);
-            this.names.TabIndex = 14;
+            this.names.ReadOnly = true;
+            this.names.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+            this.names.Size = new System.Drawing.Size(235, 257);
+            this.names.TabIndex = 13;
+            this.names.TabStop = false;
             this.names.Text = "---";
+            this.names.WordWrap = false;
             // 
             // PlayerInfo
             // 
@@ -263,6 +265,6 @@ namespace XonStat_player_tracker
         private System.Windows.Forms.Label active;
         private System.Windows.Forms.Label since;
         private System.Windows.Forms.Label nickname;
-        private System.Windows.Forms.Label names;
+        private System.Windows.Forms.TextBox names;
     }
 }

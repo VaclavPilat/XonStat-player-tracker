@@ -136,13 +136,14 @@ namespace XonStat_player_tracker
         private void PrintPlayerNames(Dictionary<string, int> usedNames)
         {
             // Dictionary to string
-            string names = "";
+            string[] names = new string[usedNames.Count];
+            int i = 0;
             foreach (KeyValuePair<string, int> usedName in usedNames)
-                names += usedName.Key + " (" + usedName.Value.ToString() + ")\n";
-            // Printing out variables
-            this.Invoke(new Action(() => {
-                this.names.Text = names;
-            }));
+            {
+                names[i] = usedName.Key + " (" + usedName.Value.ToString() + ")\n";
+                i++;
+            }
+            this.Invoke(new Action(() => { this.names.Lines = names; }));
         }
 
         // If the close button has been already pressed
