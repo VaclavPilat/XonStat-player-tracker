@@ -1,10 +1,28 @@
 ﻿using System.Windows.Forms;
 using System.Drawing;
+using System.Threading;
 
 namespace XonStat_player_tracker
 {
     public partial class FormWithStatus : Form
     {
+        // Cancellation token source for cancelling tasks
+        protected CancellationTokenSource tokenSource = new CancellationTokenSource();
+        protected CancellationToken token;
+
+        // Waiting time between steps (in ms)
+        public int WaitTime = 250;
+
+        // Waits for a specified mount of time while checking if token has been canceled
+        public void WaitForSeconds (float seconds)
+        {
+            for(int i = 0; i < (seconds * 1000f) / WaitTime; i++)
+            {
+                this.token.ThrowIfCancellationRequested();
+                Thread.Sleep(WaitTime);
+            }
+        }
+
         // Status label
         private System.Windows.Forms.Label status;
 

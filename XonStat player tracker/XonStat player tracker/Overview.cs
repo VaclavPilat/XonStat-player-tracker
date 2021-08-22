@@ -21,10 +21,6 @@ namespace XonStat_player_tracker
         // Worker thread
         private Task task;
 
-        // Cancellation this.token source for cancelling tasks
-        //private CancellationTokenSource tokenSource = new CancellationTokenSource();
-        //private CancellationToken token;
-
         // List that contains currently open PlayerInfo forms
         public static List<PlayerInfo> OpenForms = new List<PlayerInfo>();
 
@@ -32,7 +28,7 @@ namespace XonStat_player_tracker
         {
             InitializeComponent();
             InitializeStatus();
-            //this.token = this.tokenSource.Token;
+            this.token = this.tokenSource.Token;
         }
 
         private void Overview_Load(object sender, EventArgs e)
@@ -132,7 +128,7 @@ namespace XonStat_player_tracker
         private void LoadInfoFromProfiles()
         {
             //this.token.ThrowIfCancellationRequested();
-            Thread.Sleep(1000);
+            WaitForSeconds(1);
             this.Invoke(new Action(() => { 
                 ChangeStatusMessage("Loading player info from their profiles..."); 
             }));
@@ -143,7 +139,7 @@ namespace XonStat_player_tracker
                 foreach (Player player in PlayerList)
                 {
                     //this.token.ThrowIfCancellationRequested();
-                    Thread.Sleep(200);
+                    WaitForSeconds(0.25f);
                     current++;
                     // Loading player profile
                     player.LoadProfile();
@@ -184,24 +180,22 @@ namespace XonStat_player_tracker
         // Showing only rows that have set text in them
         private void searchBar_TextChanged(object sender, EventArgs e)
         {
-            string text = this.searchBar.Text;
+            string text = this.searchBar.Text.ToLower();
             // Looping through each row
             foreach (DataGridViewRow dataRow in players.Rows)
             {
                 bool containsText = false;
                 // Looping through each cell in a row
                 foreach(DataGridViewCell dataCell in dataRow.Cells)
-                {
                     if (dataCell.GetType().Equals(typeof(DataGridViewTextBoxCell)))
                     {
-                        string value = (dataCell.Value ?? string.Empty).ToString();
+                        string value = (dataCell.Value ?? string.Empty).ToString().ToLower();
                         if (value.Contains(text))
                         {
                             containsText = true;
                             break;
                         }
                     }
-                }
                 dataRow.Visible = containsText;
             }
         }

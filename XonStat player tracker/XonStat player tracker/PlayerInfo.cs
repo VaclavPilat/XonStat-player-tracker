@@ -21,10 +21,6 @@ namespace XonStat_player_tracker
         // Worker thread
         private Task task;
 
-        // Cancellation token source for cancelling tasks
-        private CancellationTokenSource tokenSource = new CancellationTokenSource();
-        private CancellationToken token;
-
         public PlayerInfo(Player player)
         {
             InitializeComponent();
@@ -73,7 +69,7 @@ namespace XonStat_player_tracker
         {
             try
             {
-                Thread.Sleep(1000);
+                WaitForSeconds(1);
                 this.Invoke(new Action(() => { ChangeStatusMessage("Started loading recently used names..."); }));
                 this.token.ThrowIfCancellationRequested();
                 int current = 0;
@@ -96,8 +92,7 @@ namespace XonStat_player_tracker
                         {
                             try
                             {
-                                this.token.ThrowIfCancellationRequested();
-                                Thread.Sleep(250);
+                                WaitForSeconds(0.25f);
                                 current++;
                                 var game = htmlWeb.Load("https://stats.xonotic.org" + gameLink.Attributes["href"].Value);
                                 var playerLink = game.DocumentNode.SelectSingleNode("//a[@href='/player/" + this.Player.ID.ToString() + "']");
@@ -120,8 +115,9 @@ namespace XonStat_player_tracker
                         }
                         this.Invoke(new Action(() => { ResultStatusMessage("Finished loading recently used names", correct, maximum); }));
                     }
+                    // If token is not cancelled, waits for 5 seconds
+                    WaitForSeconds(5);
                     // Getting new gameList URL
-                    Thread.Sleep(5000);
                     var newGameListURL = gameList.DocumentNode.SelectSingleNode("//div[@class='cell small-12']/a");
                     if (newGameListURL != null)
                         gameListURL = "https://stats.xonotic.org" + WebUtility.HtmlDecode(newGameListURL.Attributes["href"].Value);
