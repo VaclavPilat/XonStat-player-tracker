@@ -40,15 +40,13 @@ namespace XonStat_player_tracker
             Color color = Color.Black;
             if(this.Active != null)
                 if (this.Active.Contains("second") || this.Active.Contains("minute"))
-                    color = Color.DarkOrange;
+                    color = Color.Red;
                 else if (this.Active.Contains("hour"))
-                    color = Color.Goldenrod;
+                    color = Color.DarkGoldenrod;
                 else if (this.Active.Contains("day"))
-                    color = Color.DodgerBlue;
+                    color = Color.RoyalBlue;
                 else if (this.Active.Contains("month"))
                     color = Color.DimGray;
-                else
-                    color = Color.Gray;
             return color;
         }
 

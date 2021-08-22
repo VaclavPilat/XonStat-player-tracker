@@ -27,10 +27,10 @@ namespace XonStat_player_tracker
 
         public PlayerInfo(Player player)
         {
-            this.Player = player;
-            this.token = this.tokenSource.Token;
             InitializeComponent();
             InitializeStatus();
+            this.Player = player;
+            this.token = this.tokenSource.Token;
         }
 
         // Starting worker thread
@@ -97,7 +97,7 @@ namespace XonStat_player_tracker
                             try
                             {
                                 this.token.ThrowIfCancellationRequested();
-                                Thread.Sleep(200);
+                                Thread.Sleep(250);
                                 current++;
                                 var game = htmlWeb.Load("https://stats.xonotic.org" + gameLink.Attributes["href"].Value);
                                 var playerLink = game.DocumentNode.SelectSingleNode("//a[@href='/player/" + this.Player.ID.ToString() + "']");

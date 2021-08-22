@@ -30,9 +30,9 @@ namespace XonStat_player_tracker
 
         public Overview()
         {
-            //this.token = this.tokenSource.Token;
             InitializeComponent();
             InitializeStatus();
+            //this.token = this.tokenSource.Token;
         }
 
         private void Overview_Load(object sender, EventArgs e)
