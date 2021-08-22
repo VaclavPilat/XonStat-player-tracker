@@ -175,6 +175,7 @@ namespace XonStat_player_tracker
             this.addPlayer.TabIndex = 2;
             this.addPlayer.Text = "Add new player";
             this.addPlayer.UseVisualStyleBackColor = false;
+            this.addPlayer.Click += new System.EventHandler(this.addPlayer_Click);
             // 
             // Overview
             // 

@@ -94,6 +94,7 @@ namespace XonStat_player_tracker
             this.cancelButton.TabIndex = 2;
             this.cancelButton.Text = "Cancel";
             this.cancelButton.UseVisualStyleBackColor = false;
+            this.cancelButton.Click += new System.EventHandler(this.cancelButton_Click);
             // 
             // nickname
             // 
@@ -123,6 +124,7 @@ namespace XonStat_player_tracker
             this.addButton.TabIndex = 6;
             this.addButton.Text = "Add player";
             this.addButton.UseVisualStyleBackColor = false;
+            this.addButton.Click += new System.EventHandler(this.addButton_Click);
             // 
             // AddPlayer
             // 
@@ -133,6 +135,7 @@ namespace XonStat_player_tracker
             this.MaximizeBox = false;
             this.Name = "AddPlayer";
             this.Text = "XonStat player tracker";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.AddPlayer_FormClosing);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             this.ResumeLayout(false);

@@ -24,6 +24,9 @@ namespace XonStat_player_tracker
         // List that contains currently open PlayerInfo forms
         public static List<PlayerInfo> OpenForms = new List<PlayerInfo>();
 
+        // Currently opened window for adding new player
+        public static AddPlayer AddPlayerWindow = null;
+
         public Overview()
         {
             InitializeComponent();
@@ -127,7 +130,6 @@ namespace XonStat_player_tracker
         // Loading all player profiles
         private void LoadInfoFromProfiles()
         {
-            //this.token.ThrowIfCancellationRequested();
             WaitForSeconds(1);
             this.Invoke(new Action(() => { 
                 ChangeStatusMessage("Loading player info from their profiles..."); 
@@ -138,7 +140,6 @@ namespace XonStat_player_tracker
             {
                 foreach (Player player in PlayerList)
                 {
-                    //this.token.ThrowIfCancellationRequested();
                     WaitForSeconds(0.25f);
                     current++;
                     // Loading player profile
@@ -198,6 +199,18 @@ namespace XonStat_player_tracker
                     }
                 dataRow.Visible = containsText;
             }
+        }
+
+        // Adding new player
+        private void addPlayer_Click(object sender, EventArgs e)
+        {
+            if (AddPlayerWindow == null)
+            {
+                AddPlayerWindow = new AddPlayer();
+                AddPlayerWindow.Show();
+            }
+            else
+                AddPlayerWindow.BringToFront();
         }
     }
 }

@@ -17,5 +17,24 @@ namespace XonStat_player_tracker
             InitializeComponent();
             InitializeStatus();
         }
+
+        // Closing form after clicking on Caancel button
+        private void cancelButton_Click(object sender, EventArgs e) => this.Close();
+
+        // Closing form
+        private void AddPlayer_FormClosing(object sender, FormClosingEventArgs e) => Overview.AddPlayerWindow = null;
+
+        // Validating inputs + adding new player
+        private void addButton_Click(object sender, EventArgs e)
+        {
+            string id = this.id.Text;
+            string nickname = this.nickname.Text;
+            if (id != null && id.Length > 0 && nickname != null && nickname.Length > 0)
+            {
+                ResultStatusMessage("Text detected in both fields", true);
+            }
+            else
+                ResultStatusMessage("Fields cannot be empty", false);
+        }
     }
 }
