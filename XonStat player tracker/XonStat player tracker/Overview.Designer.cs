@@ -163,6 +163,7 @@ namespace XonStat_player_tracker
             this.searchBar.PlaceholderText = "Search by player ID, nickname or name";
             this.searchBar.Size = new System.Drawing.Size(1026, 27);
             this.searchBar.TabIndex = 1;
+            this.searchBar.TextChanged += new System.EventHandler(this.searchBar_TextChanged);
             // 
             // addPlayer
             // 

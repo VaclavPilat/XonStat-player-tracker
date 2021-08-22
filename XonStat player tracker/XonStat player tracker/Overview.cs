@@ -180,5 +180,30 @@ namespace XonStat_player_tracker
             //task.Wait();
             //this.tokenSource.Dispose();
         }
+
+        // Showing only rows that have set text in them
+        private void searchBar_TextChanged(object sender, EventArgs e)
+        {
+            string text = this.searchBar.Text;
+            // Looping through each row
+            foreach (DataGridViewRow dataRow in players.Rows)
+            {
+                bool containsText = false;
+                // Looping through each cell in a row
+                foreach(DataGridViewCell dataCell in dataRow.Cells)
+                {
+                    if (dataCell.GetType().Equals(typeof(DataGridViewTextBoxCell)))
+                    {
+                        string value = (dataCell.Value ?? string.Empty).ToString();
+                        if (value.Contains(text))
+                        {
+                            containsText = true;
+                            break;
+                        }
+                    }
+                }
+                dataRow.Visible = containsText;
+            }
+        }
     }
 }
