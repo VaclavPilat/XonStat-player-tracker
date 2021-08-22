@@ -30,7 +30,7 @@ namespace XonStat_player_tracker
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PlayerInfo));
-            this.playerTable = new System.Windows.Forms.TableLayoutPanel();
+            this.playerinfoLayout = new System.Windows.Forms.TableLayoutPanel();
             this.id_label = new System.Windows.Forms.Label();
             this.id = new System.Windows.Forms.Label();
             this.name = new System.Windows.Forms.Label();
@@ -43,41 +43,41 @@ namespace XonStat_player_tracker
             this.time = new System.Windows.Forms.Label();
             this.names_label = new System.Windows.Forms.Label();
             this.names = new System.Windows.Forms.TextBox();
-            this.playerTable.SuspendLayout();
+            this.playerinfoLayout.SuspendLayout();
             this.SuspendLayout();
             // 
-            // playerTable
+            // playerinfoLayout
             // 
-            this.playerTable.BackColor = System.Drawing.SystemColors.Window;
-            this.playerTable.ColumnCount = 2;
-            this.playerTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.playerTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.playerTable.Controls.Add(this.id_label, 0, 2);
-            this.playerTable.Controls.Add(this.id, 1, 2);
-            this.playerTable.Controls.Add(this.name, 0, 0);
-            this.playerTable.Controls.Add(this.nickname, 0, 1);
-            this.playerTable.Controls.Add(this.since_label, 0, 3);
-            this.playerTable.Controls.Add(this.since, 1, 3);
-            this.playerTable.Controls.Add(this.active_label, 0, 4);
-            this.playerTable.Controls.Add(this.active, 1, 4);
-            this.playerTable.Controls.Add(this.time_label, 0, 5);
-            this.playerTable.Controls.Add(this.time, 1, 5);
-            this.playerTable.Controls.Add(this.names_label, 0, 6);
-            this.playerTable.Controls.Add(this.names, 1, 6);
-            this.playerTable.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.playerTable.Location = new System.Drawing.Point(0, 0);
-            this.playerTable.Name = "playerTable";
-            this.playerTable.RowCount = 7;
-            this.playerTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 50F));
-            this.playerTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 50F));
-            this.playerTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
-            this.playerTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
-            this.playerTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
-            this.playerTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
-            this.playerTable.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.playerTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.playerTable.Size = new System.Drawing.Size(482, 503);
-            this.playerTable.TabIndex = 0;
+            this.playerinfoLayout.BackColor = System.Drawing.SystemColors.Window;
+            this.playerinfoLayout.ColumnCount = 2;
+            this.playerinfoLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.playerinfoLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.playerinfoLayout.Controls.Add(this.id_label, 0, 2);
+            this.playerinfoLayout.Controls.Add(this.id, 1, 2);
+            this.playerinfoLayout.Controls.Add(this.name, 0, 0);
+            this.playerinfoLayout.Controls.Add(this.nickname, 0, 1);
+            this.playerinfoLayout.Controls.Add(this.since_label, 0, 3);
+            this.playerinfoLayout.Controls.Add(this.since, 1, 3);
+            this.playerinfoLayout.Controls.Add(this.active_label, 0, 4);
+            this.playerinfoLayout.Controls.Add(this.active, 1, 4);
+            this.playerinfoLayout.Controls.Add(this.time_label, 0, 5);
+            this.playerinfoLayout.Controls.Add(this.time, 1, 5);
+            this.playerinfoLayout.Controls.Add(this.names_label, 0, 6);
+            this.playerinfoLayout.Controls.Add(this.names, 1, 6);
+            this.playerinfoLayout.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.playerinfoLayout.Location = new System.Drawing.Point(0, 0);
+            this.playerinfoLayout.Name = "playerinfoLayout";
+            this.playerinfoLayout.RowCount = 7;
+            this.playerinfoLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 50F));
+            this.playerinfoLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 50F));
+            this.playerinfoLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
+            this.playerinfoLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
+            this.playerinfoLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
+            this.playerinfoLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
+            this.playerinfoLayout.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.playerinfoLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.playerinfoLayout.Size = new System.Drawing.Size(482, 503);
+            this.playerinfoLayout.TabIndex = 0;
             // 
             // id_label
             // 
@@ -109,7 +109,7 @@ namespace XonStat_player_tracker
             this.name.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.name.AutoSize = true;
-            this.playerTable.SetColumnSpan(this.name, 2);
+            this.playerinfoLayout.SetColumnSpan(this.name, 2);
             this.name.Font = new System.Drawing.Font("Segoe UI Semibold", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.name.Location = new System.Drawing.Point(3, 12);
             this.name.Name = "name";
@@ -123,7 +123,7 @@ namespace XonStat_player_tracker
             this.nickname.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.nickname.AutoSize = true;
-            this.playerTable.SetColumnSpan(this.nickname, 2);
+            this.playerinfoLayout.SetColumnSpan(this.nickname, 2);
             this.nickname.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.nickname.Location = new System.Drawing.Point(3, 50);
             this.nickname.Name = "nickname";
@@ -239,21 +239,21 @@ namespace XonStat_player_tracker
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(482, 503);
-            this.Controls.Add(this.playerTable);
+            this.Controls.Add(this.playerinfoLayout);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "PlayerInfo";
             this.Text = "XonStat player tracker - Player info";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.PlayerInfo_FormClosing);
             this.Load += new System.EventHandler(this.PlayerInfo_Load);
-            this.playerTable.ResumeLayout(false);
-            this.playerTable.PerformLayout();
+            this.playerinfoLayout.ResumeLayout(false);
+            this.playerinfoLayout.PerformLayout();
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.TableLayoutPanel playerTable;
+        private System.Windows.Forms.TableLayoutPanel playerinfoLayout;
         private System.Windows.Forms.Label name;
         private System.Windows.Forms.Label since_label;
         private System.Windows.Forms.Label active_label;

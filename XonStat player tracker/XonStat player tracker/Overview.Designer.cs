@@ -29,8 +29,8 @@ namespace XonStat_player_tracker
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Overview));
             this.players = new System.Windows.Forms.DataGridView();
             this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -39,7 +39,11 @@ namespace XonStat_player_tracker
             this.active = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.profile = new System.Windows.Forms.DataGridViewButtonColumn();
             this.info = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.overviewLayout = new System.Windows.Forms.TableLayoutPanel();
+            this.searchBar = new System.Windows.Forms.TextBox();
+            this.addPlayer = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.players)).BeginInit();
+            this.overviewLayout.SuspendLayout();
             this.SuspendLayout();
             // 
             // players
@@ -59,13 +63,14 @@ namespace XonStat_player_tracker
             this.active,
             this.profile,
             this.info});
+            this.overviewLayout.SetColumnSpan(this.players, 2);
             this.players.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.players.Location = new System.Drawing.Point(0, 0);
+            this.players.Location = new System.Drawing.Point(3, 38);
             this.players.Name = "players";
             this.players.ReadOnly = true;
             this.players.RowHeadersWidth = 51;
             this.players.RowTemplate.Height = 29;
-            this.players.Size = new System.Drawing.Size(1182, 553);
+            this.players.Size = new System.Drawing.Size(1226, 512);
             this.players.TabIndex = 0;
             this.players.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.players_CellContentClick);
             // 
@@ -106,9 +111,9 @@ namespace XonStat_player_tracker
             // profile
             // 
             this.profile.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle3.BackColor = System.Drawing.Color.LightSkyBlue;
-            this.profile.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.LightSkyBlue;
+            this.profile.DefaultCellStyle = dataGridViewCellStyle1;
             this.profile.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.profile.HeaderText = "Profile";
             this.profile.MinimumWidth = 150;
@@ -121,9 +126,9 @@ namespace XonStat_player_tracker
             // info
             // 
             this.info.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle4.BackColor = System.Drawing.Color.LemonChiffon;
-            this.info.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.LemonChiffon;
+            this.info.DefaultCellStyle = dataGridViewCellStyle2;
             this.info.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.info.HeaderText = "Player info";
             this.info.MinimumWidth = 150;
@@ -132,12 +137,50 @@ namespace XonStat_player_tracker
             this.info.Text = "More information";
             this.info.UseColumnTextForButtonValue = true;
             // 
+            // overviewLayout
+            // 
+            this.overviewLayout.ColumnCount = 2;
+            this.overviewLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.overviewLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 200F));
+            this.overviewLayout.Controls.Add(this.players, 0, 1);
+            this.overviewLayout.Controls.Add(this.searchBar, 0, 0);
+            this.overviewLayout.Controls.Add(this.addPlayer, 1, 0);
+            this.overviewLayout.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.overviewLayout.Location = new System.Drawing.Point(0, 0);
+            this.overviewLayout.Name = "overviewLayout";
+            this.overviewLayout.RowCount = 2;
+            this.overviewLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
+            this.overviewLayout.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.overviewLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.overviewLayout.Size = new System.Drawing.Size(1232, 553);
+            this.overviewLayout.TabIndex = 1;
+            // 
+            // searchBar
+            // 
+            this.searchBar.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.searchBar.Location = new System.Drawing.Point(3, 3);
+            this.searchBar.Name = "searchBar";
+            this.searchBar.PlaceholderText = "Search by player ID, nickname or name";
+            this.searchBar.Size = new System.Drawing.Size(1026, 27);
+            this.searchBar.TabIndex = 1;
+            // 
+            // addPlayer
+            // 
+            this.addPlayer.BackColor = System.Drawing.Color.PaleGreen;
+            this.addPlayer.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.addPlayer.Location = new System.Drawing.Point(1035, 3);
+            this.addPlayer.Name = "addPlayer";
+            this.addPlayer.Size = new System.Drawing.Size(194, 29);
+            this.addPlayer.TabIndex = 2;
+            this.addPlayer.Text = "Add new player";
+            this.addPlayer.UseVisualStyleBackColor = false;
+            // 
             // Overview
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1182, 553);
-            this.Controls.Add(this.players);
+            this.ClientSize = new System.Drawing.Size(1232, 553);
+            this.Controls.Add(this.overviewLayout);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Overview";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -145,6 +188,8 @@ namespace XonStat_player_tracker
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Overview_FormClosing);
             this.Load += new System.EventHandler(this.Overview_Load);
             ((System.ComponentModel.ISupportInitialize)(this.players)).EndInit();
+            this.overviewLayout.ResumeLayout(false);
+            this.overviewLayout.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -158,6 +203,9 @@ namespace XonStat_player_tracker
         private System.Windows.Forms.DataGridViewTextBoxColumn active;
         private System.Windows.Forms.DataGridViewButtonColumn profile;
         private System.Windows.Forms.DataGridViewButtonColumn info;
+        private System.Windows.Forms.TableLayoutPanel overviewLayout;
+        private System.Windows.Forms.TextBox searchBar;
+        private System.Windows.Forms.Button addPlayer;
     }
 }
 
