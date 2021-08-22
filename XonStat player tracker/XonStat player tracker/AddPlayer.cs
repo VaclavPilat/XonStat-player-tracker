@@ -31,10 +31,10 @@ namespace XonStat_player_tracker
             string nickname = this.nickname.Text;
             if (id != null && id.Length > 0 && nickname != null && nickname.Length > 0)
             {
-                ResultStatusMessage("Text detected in both fields", true);
+                Status_ResultMessage("Text detected in both fields", true);
             }
             else
-                ResultStatusMessage("Fields cannot be empty", false);
+                Status_ResultMessage("Fields cannot be empty", false);
         }
     }
 }

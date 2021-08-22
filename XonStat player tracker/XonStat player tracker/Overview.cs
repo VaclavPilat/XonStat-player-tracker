@@ -36,7 +36,7 @@ namespace XonStat_player_tracker
 
         private void Overview_Load(object sender, EventArgs e)
         {
-            ChangeStatusMessage("Loading players from AppSettings...");
+            Status_ChangeMessage("Loading players from AppSettings...");
             // Filling DatGridView with player data
             var playerList = ConfigurationManager.AppSettings;
             int current = 0;
@@ -51,9 +51,9 @@ namespace XonStat_player_tracker
                     players.Rows.Add(new object[] { player.ID, player.Nickname });
                     PlayerList.Add(player);
                 }
-                ChangeStatusProgress(current, PlayerList.Count, playerList.Count);
+                Status_ChangeProgress(current, PlayerList.Count, playerList.Count);
             }
-            ResultStatusMessage("Finished loading players from Appsettings", PlayerList.Count, playerList.Count);
+            Status_ResultMessage("Finished loading players from Appsettings", PlayerList.Count, playerList.Count);
             // Starting worker thread
             task = new Task(() => LoadInfoFromProfiles());
             task.Start();
@@ -132,7 +132,7 @@ namespace XonStat_player_tracker
         {
             WaitForSeconds(1);
             this.Invoke(new Action(() => { 
-                ChangeStatusMessage("Loading player info from their profiles..."); 
+                Status_ChangeMessage("Loading player info from their profiles..."); 
             }));
             int current = 0;
             int correct = 0;
@@ -160,11 +160,11 @@ namespace XonStat_player_tracker
                     if(player.Correct)
                         correct++;
                     this.Invoke(new Action(() => { 
-                        ChangeStatusProgress(current, correct, PlayerList.Count); 
+                        Status_ChangeProgress(current, correct, PlayerList.Count); 
                     }));
                 }
                 this.Invoke(new Action(() => { 
-                    ResultStatusMessage("Finished loading data from player profiles", correct, PlayerList.Count); 
+                    Status_ResultMessage("Finished loading data from player profiles", correct, PlayerList.Count); 
                 }));
             }
             catch (OperationCanceledException) { }

@@ -39,7 +39,7 @@ namespace XonStat_player_tracker
         // Loading player info
         private void LoadPlayerInfo ()
         {
-            this.Invoke(new Action(() => { ChangeStatusMessage("Loading player info from his profile..."); }));
+            this.Invoke(new Action(() => { Status_ChangeMessage("Loading player info from his profile..."); }));
             this.Player.LoadAll();
             this.token.ThrowIfCancellationRequested();
             PrintPlayerVariables();
@@ -58,9 +58,9 @@ namespace XonStat_player_tracker
                 this.since.Text = this.Player.Since;
                 this.time.Text = this.Player.Time;
                 if (this.Player.Correct)
-                    ResultStatusMessage("Successfully loaded information from player profile.", true);
+                    Status_ResultMessage("Successfully loaded information from player profile.", true);
                 else
-                    ResultStatusMessage("Some issues occured when loading information from player profile.", false);
+                    Status_ResultMessage("Some issues occured when loading information from player profile.", false);
             }));
         }
 
@@ -70,7 +70,7 @@ namespace XonStat_player_tracker
             try
             {
                 WaitForSeconds(1);
-                this.Invoke(new Action(() => { ChangeStatusMessage("Started loading recently used names..."); }));
+                this.Invoke(new Action(() => { Status_ChangeMessage("Started loading recently used names..."); }));
                 this.token.ThrowIfCancellationRequested();
                 int current = 0;
                 int correct = 0;
@@ -81,8 +81,8 @@ namespace XonStat_player_tracker
 
                 for (int i = 0; i < 5; i++)
                 {
-                    this.Invoke(new Action(() => { ChangeStatusMessage("Loading recently used names..."); }));
-                    this.Invoke(new Action(() => { ChangeStatusProgress(current, correct, maximum); }));
+                    this.Invoke(new Action(() => { Status_ChangeMessage("Loading recently used names..."); }));
+                    this.Invoke(new Action(() => { Status_ChangeProgress(current, correct, maximum); }));
                     var gameList = htmlWeb.Load(gameListURL);
                     var gameLinks = gameList.DocumentNode.SelectNodes("//td[@class='text-center']/a[@class='button tiny']");
                     if (gameLinks != null)
@@ -110,10 +110,10 @@ namespace XonStat_player_tracker
                                 }
                             }
                             catch (WebException) { }
-                            this.Invoke(new Action(() => { ChangeStatusProgress(current, correct, maximum); }));
+                            this.Invoke(new Action(() => { Status_ChangeProgress(current, correct, maximum); }));
                             PrintPlayerNames(usedNames);
                         }
-                        this.Invoke(new Action(() => { ResultStatusMessage("Finished loading recently used names", correct, maximum); }));
+                        this.Invoke(new Action(() => { Status_ResultMessage("Finished loading recently used names", correct, maximum); }));
                     }
                     // If token is not cancelled, waits for 5 seconds
                     WaitForSeconds(5);
@@ -151,7 +151,7 @@ namespace XonStat_player_tracker
             if (!this.CanClose)
             {
                 e.Cancel = true;
-                ClosingStatusMessage();
+                Status_ClosingMessage();
                 this.tokenSource.Cancel();
                 this.task.ContinueWith(t =>
                 {
