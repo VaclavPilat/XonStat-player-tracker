@@ -43,16 +43,16 @@ namespace XonStat_player_tracker
                         bool playerExists = (Overview.PlayerList.Where(x => ID == x.ID).ToList().Count > 0);
                         if (!playerExists)
                         {
+                            // Adding the player into Appconfig
+                            Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+                            config.AppSettings.Settings.Add(ID.ToString(), nickname);
+                            config.Save();
+                            ConfigurationManager.RefreshSection("appSettings");
                             int playerCount = this.Overview.PlayerList.Count;
                             this.Overview.CreatePlayerInstance(ID);
                             if (this.Overview.PlayerList.Count > playerCount)
                             {
                                 Status_ResultMessage("New player was successfully added", true); 
-                                // Adding the player into Appconfig
-                                Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
-                                config.AppSettings.Settings.Add(ID.ToString(), nickname);
-                                config.Save();
-                                ConfigurationManager.RefreshSection("appSettings");
                                 WaitForSeconds(1.5f);
                                 this.Close();
                             }
