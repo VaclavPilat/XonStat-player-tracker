@@ -32,6 +32,7 @@ namespace XonStat_player_tracker
         // Validating inputs + adding new player
         private void addButton_Click(object sender, EventArgs e)
         {
+            this.addButton.Enabled = false;
             string id = this.id.Text;
             string nickname = this.nickname.Text;
             if (id != null && id.Length > 0 && nickname != null && nickname.Length > 0)
@@ -49,15 +50,10 @@ namespace XonStat_player_tracker
                             config.Save();
                             ConfigurationManager.RefreshSection("appSettings");
                             int playerCount = this.Overview.PlayerList.Count;
-                            this.Overview.CreatePlayerInstance(ID);
-                            if (this.Overview.PlayerList.Count > playerCount)
-                            {
-                                Status_ResultMessage("New player was successfully added", true); 
-                                WaitForSeconds(1.5f);
-                                this.Close();
-                            }
-                            else
-                                Status_ResultMessage("Failed to add new player", true);
+                            Player player = this.Overview.CreatePlayerInstance(ID);
+                            this.Overview.ShowPlayerInfo(player);
+                            this.Overview.Status_ResultMessage("New player (ID = " + player.ID.ToString() + ") added. Loading player profile...", player.Correct);
+                            this.Close();
                         }
                         else
                             Status_ResultMessage("This player ID is already in use", false);
@@ -69,6 +65,7 @@ namespace XonStat_player_tracker
             }
             else
                 Status_ResultMessage("Fields cannot be empty", false);
+            this.addButton.Enabled = true;
         }
     }
 }

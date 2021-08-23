@@ -52,12 +52,13 @@ namespace XonStat_player_tracker
         }
 
         // Creates new player instnce and adds it to list of players
-        public void CreatePlayerInstance (int ID)
+        public Player CreatePlayerInstance (int ID)
         {
             Player player = new Player(ID);
             player.LoadNickname();
             players.Rows.Add(new object[] { player.ID, player.Nickname });
             PlayerList.Add(player);
+            return player;
         }
 
         // Actions after clicking on a cell value
@@ -75,7 +76,7 @@ namespace XonStat_player_tracker
                         ShowPlayerProfile(currentPlayer);
                         break;
                     case "info":
-                        ShowPlayerInfo(currentPlayer);
+                        OpenPlayerInfo(currentPlayer);
                         break;
                     default:
                         break;
@@ -94,7 +95,7 @@ namespace XonStat_player_tracker
         }
 
         // Opening new PlayerInfo form
-        private void ShowPlayerInfo (Player currentPlayer)
+        private void OpenPlayerInfo (Player currentPlayer)
         {
             // Checking if there is already a form opened that contains the same player info
             PlayerInfo currentForm = null;
@@ -128,6 +129,26 @@ namespace XonStat_player_tracker
             return row;
         }
 
+        // Showing plyer info in DataGridView
+        public void ShowPlayerInfo (Player player)
+        {
+            // Loading player profile
+            player.LoadProfile();
+            if (player.Correct)
+            {
+                // Printing out player info
+                int row = GetGridRowIndex(player);
+                if (row >= 0)
+                {
+                    player.LoadName();
+                    players.Rows[row].Cells["name"].Value = player.Name;
+                    player.LoadActive();
+                    players.Rows[row].Cells["active"].Value = player.Active;
+                    players.Rows[row].Cells["active"].Style = new DataGridViewCellStyle { ForeColor = player.GetActiveColor() };
+                }
+            }
+        }
+
         // Loading all player profiles
         private void LoadInfoFromProfiles()
         {
@@ -143,21 +164,7 @@ namespace XonStat_player_tracker
                 {
                     WaitForSeconds(0.25f);
                     current++;
-                    // Loading player profile
-                    player.LoadProfile();
-                    if(player.Correct)
-                    {
-                        // Printing out player info
-                        int row = GetGridRowIndex(player);
-                        if (row >= 0)
-                        { 
-                            player.LoadName();
-                            players.Rows[row].Cells["name"].Value = player.Name;
-                            player.LoadActive();
-                            players.Rows[row].Cells["active"].Value = player.Active;
-                            players.Rows[row].Cells["active"].Style = new DataGridViewCellStyle { ForeColor = player.GetActiveColor() };
-                        }
-                    }
+                    ShowPlayerInfo(player);
                     if(player.Correct)
                         correct++;
                     this.Invoke(new Action(() => { 

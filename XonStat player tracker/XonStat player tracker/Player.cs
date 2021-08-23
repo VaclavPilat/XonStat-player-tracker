@@ -45,7 +45,7 @@ namespace XonStat_player_tracker
                     color = Color.DarkGoldenrod;
                 else if (this.Active.Contains("day"))
                     color = Color.RoyalBlue;
-                else if (this.Active.Contains("month"))
+                else
                     color = Color.DimGray;
             return color;
         }
