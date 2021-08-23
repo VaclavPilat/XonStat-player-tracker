@@ -49,7 +49,7 @@ namespace XonStat_player_tracker
                             config.AppSettings.Settings.Add(ID.ToString(), nickname);
                             config.Save();
                             ConfigurationManager.RefreshSection("appSettings");
-                            int playerCount = this.Overview.PlayerList.Count;
+                            // Adding player into DataGridView
                             Player player = this.Overview.CreatePlayerInstance(ID);
                             this.Overview.ShowPlayerInfo(player);
                             this.Overview.Status_ResultMessage("New player (ID = " + player.ID.ToString() + ") added. Loading player profile...", player.Correct);

@@ -31,6 +31,7 @@ namespace XonStat_player_tracker
         {
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Overview));
             this.players = new System.Windows.Forms.DataGridView();
             this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -39,6 +40,7 @@ namespace XonStat_player_tracker
             this.active = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.profile = new System.Windows.Forms.DataGridViewButtonColumn();
             this.info = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.delete = new System.Windows.Forms.DataGridViewButtonColumn();
             this.overviewLayout = new System.Windows.Forms.TableLayoutPanel();
             this.searchBar = new System.Windows.Forms.TextBox();
             this.addPlayer = new System.Windows.Forms.Button();
@@ -62,7 +64,8 @@ namespace XonStat_player_tracker
             this.name,
             this.active,
             this.profile,
-            this.info});
+            this.info,
+            this.delete});
             this.overviewLayout.SetColumnSpan(this.players, 2);
             this.players.Dock = System.Windows.Forms.DockStyle.Fill;
             this.players.Location = new System.Drawing.Point(3, 38);
@@ -103,6 +106,7 @@ namespace XonStat_player_tracker
             // active
             // 
             this.active.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.active.FillWeight = 150F;
             this.active.HeaderText = "Last active";
             this.active.MinimumWidth = 150;
             this.active.Name = "active";
@@ -114,9 +118,10 @@ namespace XonStat_player_tracker
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle1.BackColor = System.Drawing.Color.LightSkyBlue;
             this.profile.DefaultCellStyle = dataGridViewCellStyle1;
+            this.profile.FillWeight = 120F;
             this.profile.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.profile.HeaderText = "Profile";
-            this.profile.MinimumWidth = 150;
+            this.profile.MinimumWidth = 120;
             this.profile.Name = "profile";
             this.profile.ReadOnly = true;
             this.profile.Text = "Show profile";
@@ -129,13 +134,30 @@ namespace XonStat_player_tracker
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle2.BackColor = System.Drawing.Color.LemonChiffon;
             this.info.DefaultCellStyle = dataGridViewCellStyle2;
+            this.info.FillWeight = 120F;
             this.info.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.info.HeaderText = "Player info";
-            this.info.MinimumWidth = 150;
+            this.info.MinimumWidth = 120;
             this.info.Name = "info";
             this.info.ReadOnly = true;
             this.info.Text = "More information";
+            this.info.ToolTipText = "Show more information bout this player";
             this.info.UseColumnTextForButtonValue = true;
+            // 
+            // delete
+            // 
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.LightSalmon;
+            this.delete.DefaultCellStyle = dataGridViewCellStyle3;
+            this.delete.FillWeight = 120F;
+            this.delete.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.delete.HeaderText = "Delete player";
+            this.delete.MinimumWidth = 120;
+            this.delete.Name = "delete";
+            this.delete.ReadOnly = true;
+            this.delete.Text = "Delete this player";
+            this.delete.ToolTipText = "Delete this player";
+            this.delete.UseColumnTextForButtonValue = true;
             // 
             // overviewLayout
             // 
@@ -170,6 +192,7 @@ namespace XonStat_player_tracker
             this.addPlayer.BackColor = System.Drawing.Color.PaleGreen;
             this.addPlayer.Dock = System.Windows.Forms.DockStyle.Fill;
             this.addPlayer.Enabled = false;
+            this.addPlayer.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.addPlayer.Location = new System.Drawing.Point(1035, 3);
             this.addPlayer.Name = "addPlayer";
             this.addPlayer.Size = new System.Drawing.Size(194, 29);
@@ -200,15 +223,16 @@ namespace XonStat_player_tracker
         #endregion
 
         private System.Windows.Forms.DataGridView players;
+        private System.Windows.Forms.TableLayoutPanel overviewLayout;
+        private System.Windows.Forms.TextBox searchBar;
+        private System.Windows.Forms.Button addPlayer;
         private System.Windows.Forms.DataGridViewTextBoxColumn id;
         private System.Windows.Forms.DataGridViewTextBoxColumn nickname;
         private System.Windows.Forms.DataGridViewTextBoxColumn name;
         private System.Windows.Forms.DataGridViewTextBoxColumn active;
         private System.Windows.Forms.DataGridViewButtonColumn profile;
         private System.Windows.Forms.DataGridViewButtonColumn info;
-        private System.Windows.Forms.TableLayoutPanel overviewLayout;
-        private System.Windows.Forms.TextBox searchBar;
-        private System.Windows.Forms.Button addPlayer;
+        private System.Windows.Forms.DataGridViewButtonColumn delete;
     }
 }
 

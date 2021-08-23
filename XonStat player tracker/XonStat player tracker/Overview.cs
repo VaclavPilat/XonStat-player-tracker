@@ -78,10 +78,35 @@ namespace XonStat_player_tracker
                     case "info":
                         OpenPlayerInfo(currentPlayer);
                         break;
+                    case "delete":
+                        DeletePlayer(currentPlayer);
+                        break;
                     default:
                         break;
                 }
             }
+        }
+
+        // Deleting selected player
+        private void DeletePlayer (Player player)
+        {
+            if(task.IsCompleted)
+                if(MessageBox.Show("Are you sure you want to delete this player (ID = " + player.ID.ToString() + ")", "XonStat player tracker", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                    this.task.ContinueWith(t =>
+                    {
+                        // Removing the player from DataGridView
+                        int row = GetGridRowIndex(player);
+                        this.Invoke(new Action(() => {
+                            players.Rows.RemoveAt(row);
+                            PlayerList.Remove(player);
+                            this.Status_ResultMessage("Removed player (ID = " + player.ID + ") from Appconfig.", true);
+                        }));
+                        // Removing the player from Appconfig
+                        Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+                        config.AppSettings.Settings.Remove(player.ID.ToString());
+                        config.Save(ConfigurationSaveMode.Modified);
+                        ConfigurationManager.RefreshSection("appSettings");
+                    });
         }
 
         // Showing player profile in a browser

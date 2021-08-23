@@ -44,7 +44,8 @@ namespace XonStat_player_tracker
             this.Player.LoadAll();
             this.token.ThrowIfCancellationRequested();
             PrintPlayerVariables();
-            LoadPlayerNames();
+            if(this.Player.Correct)
+                LoadPlayerNames();
         }
 
         // Printing out variables
