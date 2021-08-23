@@ -169,6 +169,7 @@ namespace XonStat_player_tracker
             // 
             this.addPlayer.BackColor = System.Drawing.Color.PaleGreen;
             this.addPlayer.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.addPlayer.Enabled = false;
             this.addPlayer.Location = new System.Drawing.Point(1035, 3);
             this.addPlayer.Name = "addPlayer";
             this.addPlayer.Size = new System.Drawing.Size(194, 29);

@@ -1,11 +1,15 @@
 ﻿using System.Windows.Forms;
 using System.Drawing;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace XonStat_player_tracker
 {
     public partial class FormWithStatus : Form
     {
+        // Worker thread
+        protected Task task;
+
         // Cancellation token source for cancelling tasks
         protected CancellationTokenSource tokenSource = new CancellationTokenSource();
         protected CancellationToken token;

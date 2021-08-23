@@ -15,18 +15,19 @@ namespace XonStat_player_tracker
 {
     public partial class PlayerInfo : FormWithStatus
     {
+        // Reference to Overview window instance
+        private Overview Overview = null;
+
         // Player reference
         public Player Player;
 
-        // Worker thread
-        private Task task;
-
-        public PlayerInfo(Player player)
+        public PlayerInfo(Overview overview, Player player)
         {
-            InitializeComponent();
-            InitializeStatus();
+            this.Overview = overview;
             this.Player = player;
             this.token = this.tokenSource.Token;
+            InitializeComponent();
+            InitializeStatus();
         }
 
         // Starting worker thread
@@ -156,7 +157,7 @@ namespace XonStat_player_tracker
                 this.task.ContinueWith(t =>
                 {
                     this.tokenSource.Dispose();
-                    Overview.OpenForms.Remove(this);
+                    this.Overview.OpenForms.Remove(this);
                     this.CanClose = true;
                     this.Invoke(new Action(() => {
                         this.Close();

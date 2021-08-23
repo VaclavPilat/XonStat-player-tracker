@@ -16,22 +16,19 @@ namespace XonStat_player_tracker
     public partial class Overview : FormWithStatus
     {
         // List of players
-        private List<Player> PlayerList = new List<Player>();
-
-        // Worker thread
-        private Task task;
+        public List<Player> PlayerList = new List<Player>();
 
         // List that contains currently open PlayerInfo forms
-        public static List<PlayerInfo> OpenForms = new List<PlayerInfo>();
+        public List<PlayerInfo> OpenForms = new List<PlayerInfo>();
 
         // Currently opened window for adding new player
-        public static AddPlayer AddPlayerWindow = null;
+        public AddPlayer AddPlayerWindow = null;
 
         public Overview()
         {
+            this.token = this.tokenSource.Token;
             InitializeComponent();
             InitializeStatus();
-            this.token = this.tokenSource.Token;
         }
 
         private void Overview_Load(object sender, EventArgs e)
@@ -45,18 +42,22 @@ namespace XonStat_player_tracker
                 current++;
                 int intID;
                 if (Int32.TryParse(stringID, out intID))
-                {
-                    Player player = new Player(intID);
-                    player.LoadNickname();
-                    players.Rows.Add(new object[] { player.ID, player.Nickname });
-                    PlayerList.Add(player);
-                }
+                    CreatePlayerInstance(intID);
                 Status_ChangeProgress(current, PlayerList.Count, playerList.Count);
             }
             Status_ResultMessage("Finished loading players from Appsettings", PlayerList.Count, playerList.Count);
             // Starting worker thread
             task = new Task(() => LoadInfoFromProfiles());
             task.Start();
+        }
+
+        // Creates new player instnce and adds it to list of players
+        public void CreatePlayerInstance (int ID)
+        {
+            Player player = new Player(ID);
+            player.LoadNickname();
+            players.Rows.Add(new object[] { player.ID, player.Nickname });
+            PlayerList.Add(player);
         }
 
         // Actions after clicking on a cell value
@@ -108,7 +109,7 @@ namespace XonStat_player_tracker
             else
             {
                 // Showing a form with more info about the player
-                PlayerInfo playerInfo = new PlayerInfo(currentPlayer);
+                PlayerInfo playerInfo = new PlayerInfo(this, currentPlayer);
                 playerInfo.Show();
                 OpenForms.Add(playerInfo);
             }
@@ -164,7 +165,8 @@ namespace XonStat_player_tracker
                     }));
                 }
                 this.Invoke(new Action(() => { 
-                    Status_ResultMessage("Finished loading data from player profiles", correct, PlayerList.Count); 
+                    Status_ResultMessage("Finished loading data from player profiles", correct, PlayerList.Count);
+                    this.addPlayer.Enabled = true;
                 }));
             }
             catch (OperationCanceledException) { }
@@ -206,7 +208,7 @@ namespace XonStat_player_tracker
         {
             if (AddPlayerWindow == null)
             {
-                AddPlayerWindow = new AddPlayer();
+                AddPlayerWindow = new AddPlayer(this);
                 AddPlayerWindow.Show();
             }
             else
