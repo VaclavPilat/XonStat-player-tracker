@@ -177,6 +177,10 @@ namespace XonStat_player_tracker
         // Loading all player profiles
         private void LoadInfoFromProfiles()
         {
+            this.Invoke(new Action(() => {
+                this.addPlayer.Enabled = false;
+                this.refreshList.Enabled = false;
+            }));
             WaitForSeconds(1);
             this.Invoke(new Action(() => { 
                 Status_ChangeMessage("Loading player info from their profiles..."); 
@@ -199,6 +203,7 @@ namespace XonStat_player_tracker
                 this.Invoke(new Action(() => { 
                     Status_ResultMessage("Finished loading data from player profiles", correct, PlayerList.Count);
                     this.addPlayer.Enabled = true;
+                    this.refreshList.Enabled = true;
                 }));
             }
             catch (OperationCanceledException) { }
@@ -245,6 +250,16 @@ namespace XonStat_player_tracker
             }
             else
                 AddPlayerWindow.BringToFront();
+        }
+
+        // Refreshing player list
+        private void refreshList_Click(object sender, EventArgs e)
+        {
+            if (task.IsCompleted)
+                this.task.ContinueWith(t =>
+                {
+                    LoadInfoFromProfiles();
+                });
         }
     }
 }
