@@ -28,7 +28,7 @@ namespace XonStat_player_tracker
         {
             this.token = this.tokenSource.Token;
             InitializeComponent();
-            InitializeStatus();
+            InitializeStatus(this.status);
         }
 
         private void Overview_Load(object sender, EventArgs e)

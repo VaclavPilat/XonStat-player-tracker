@@ -29,9 +29,9 @@ namespace XonStat_player_tracker
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Overview));
             this.refreshList = new System.Windows.Forms.Button();
             this.addPlayer = new System.Windows.Forms.Button();
@@ -44,7 +44,12 @@ namespace XonStat_player_tracker
             this.profile = new System.Windows.Forms.DataGridViewButtonColumn();
             this.info = new System.Windows.Forms.DataGridViewButtonColumn();
             this.delete = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.contentPanel = new System.Windows.Forms.Panel();
+            this.statusPanel = new System.Windows.Forms.Panel();
+            this.status = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.players)).BeginInit();
+            this.contentPanel.SuspendLayout();
+            this.statusPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // refreshList
@@ -53,7 +58,7 @@ namespace XonStat_player_tracker
             this.refreshList.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.refreshList.BackColor = System.Drawing.Color.Khaki;
             this.refreshList.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.refreshList.Location = new System.Drawing.Point(904, 10);
+            this.refreshList.Location = new System.Drawing.Point(892, 0);
             this.refreshList.Name = "refreshList";
             this.refreshList.Size = new System.Drawing.Size(150, 29);
             this.refreshList.TabIndex = 3;
@@ -66,7 +71,7 @@ namespace XonStat_player_tracker
             this.addPlayer.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.addPlayer.BackColor = System.Drawing.Color.PaleGreen;
             this.addPlayer.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.addPlayer.Location = new System.Drawing.Point(1060, 10);
+            this.addPlayer.Location = new System.Drawing.Point(1048, 0);
             this.addPlayer.Name = "addPlayer";
             this.addPlayer.Size = new System.Drawing.Size(160, 29);
             this.addPlayer.TabIndex = 2;
@@ -78,10 +83,10 @@ namespace XonStat_player_tracker
             // 
             this.searchBar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.searchBar.Location = new System.Drawing.Point(12, 12);
+            this.searchBar.Location = new System.Drawing.Point(0, 2);
             this.searchBar.Name = "searchBar";
             this.searchBar.PlaceholderText = "Search by player ID, nickname or name";
-            this.searchBar.Size = new System.Drawing.Size(886, 27);
+            this.searchBar.Size = new System.Drawing.Size(885, 27);
             this.searchBar.TabIndex = 1;
             this.searchBar.TextChanged += new System.EventHandler(this.searchBar_TextChanged);
             // 
@@ -106,12 +111,12 @@ namespace XonStat_player_tracker
             this.profile,
             this.info,
             this.delete});
-            this.players.Location = new System.Drawing.Point(12, 47);
+            this.players.Location = new System.Drawing.Point(0, 35);
             this.players.Name = "players";
             this.players.ReadOnly = true;
             this.players.RowHeadersWidth = 51;
             this.players.RowTemplate.Height = 29;
-            this.players.Size = new System.Drawing.Size(1208, 475);
+            this.players.Size = new System.Drawing.Size(1208, 463);
             this.players.TabIndex = 0;
             this.players.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.players_CellContentClick);
             // 
@@ -152,9 +157,9 @@ namespace XonStat_player_tracker
             // profile
             // 
             this.profile.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.LightSkyBlue;
-            this.profile.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle4.BackColor = System.Drawing.Color.LightSkyBlue;
+            this.profile.DefaultCellStyle = dataGridViewCellStyle4;
             this.profile.FillWeight = 120F;
             this.profile.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.profile.HeaderText = "Profile";
@@ -170,9 +175,9 @@ namespace XonStat_player_tracker
             // info
             // 
             this.info.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.LemonChiffon;
-            this.info.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle5.BackColor = System.Drawing.Color.LemonChiffon;
+            this.info.DefaultCellStyle = dataGridViewCellStyle5;
             this.info.FillWeight = 120F;
             this.info.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.info.HeaderText = "Player info";
@@ -188,9 +193,9 @@ namespace XonStat_player_tracker
             // delete
             // 
             this.delete.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle3.BackColor = System.Drawing.Color.LightSalmon;
-            this.delete.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle6.BackColor = System.Drawing.Color.LightSalmon;
+            this.delete.DefaultCellStyle = dataGridViewCellStyle6;
             this.delete.FillWeight = 120F;
             this.delete.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.delete.HeaderText = "Delete player";
@@ -203,15 +208,49 @@ namespace XonStat_player_tracker
             this.delete.UseColumnTextForButtonValue = true;
             this.delete.Width = 150;
             // 
+            // contentPanel
+            // 
+            this.contentPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.contentPanel.Controls.Add(this.addPlayer);
+            this.contentPanel.Controls.Add(this.refreshList);
+            this.contentPanel.Controls.Add(this.players);
+            this.contentPanel.Controls.Add(this.searchBar);
+            this.contentPanel.Location = new System.Drawing.Point(12, 12);
+            this.contentPanel.Name = "contentPanel";
+            this.contentPanel.Size = new System.Drawing.Size(1208, 498);
+            this.contentPanel.TabIndex = 4;
+            // 
+            // statusPanel
+            // 
+            this.statusPanel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.statusPanel.Controls.Add(this.status);
+            this.statusPanel.Location = new System.Drawing.Point(13, 516);
+            this.statusPanel.Name = "statusPanel";
+            this.statusPanel.Size = new System.Drawing.Size(1207, 25);
+            this.statusPanel.TabIndex = 5;
+            // 
+            // status
+            // 
+            this.status.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.status.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.status.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.status.Location = new System.Drawing.Point(0, 0);
+            this.status.Name = "status";
+            this.status.Size = new System.Drawing.Size(1207, 25);
+            this.status.TabIndex = 0;
+            this.status.Text = "Status";
+            this.status.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // Overview
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1232, 553);
-            this.Controls.Add(this.players);
-            this.Controls.Add(this.refreshList);
-            this.Controls.Add(this.addPlayer);
-            this.Controls.Add(this.searchBar);
+            this.Controls.Add(this.statusPanel);
+            this.Controls.Add(this.contentPanel);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Overview";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -219,8 +258,10 @@ namespace XonStat_player_tracker
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Overview_FormClosing);
             this.Load += new System.EventHandler(this.Overview_Load);
             ((System.ComponentModel.ISupportInitialize)(this.players)).EndInit();
+            this.contentPanel.ResumeLayout(false);
+            this.contentPanel.PerformLayout();
+            this.statusPanel.ResumeLayout(false);
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -237,6 +278,9 @@ namespace XonStat_player_tracker
         private System.Windows.Forms.DataGridViewButtonColumn profile;
         private System.Windows.Forms.DataGridViewButtonColumn info;
         private System.Windows.Forms.DataGridViewButtonColumn delete;
+        private System.Windows.Forms.Panel contentPanel;
+        private System.Windows.Forms.Panel statusPanel;
+        private System.Windows.Forms.Label status;
     }
 }
 
