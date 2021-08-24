@@ -19,7 +19,7 @@ namespace XonStat_player_tracker
         {
             this.token = this.tokenSource.Token;
             InitializeComponent();
-            InitializeStatus(this.status);
+            InitializeStatus(this.statusLabel);
         }
 
         // Finding a row that contains info about the player (in case they get shuffled)

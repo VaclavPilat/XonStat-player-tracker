@@ -46,7 +46,7 @@ namespace XonStat_player_tracker
             this.delete = new System.Windows.Forms.DataGridViewButtonColumn();
             this.contentPanel = new System.Windows.Forms.Panel();
             this.statusPanel = new System.Windows.Forms.Panel();
-            this.status = new System.Windows.Forms.Label();
+            this.statusLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.players)).BeginInit();
             this.contentPanel.SuspendLayout();
             this.statusPanel.SuspendLayout();
@@ -226,23 +226,23 @@ namespace XonStat_player_tracker
             // 
             this.statusPanel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.statusPanel.Controls.Add(this.status);
+            this.statusPanel.Controls.Add(this.statusLabel);
             this.statusPanel.Location = new System.Drawing.Point(13, 516);
             this.statusPanel.Name = "statusPanel";
             this.statusPanel.Size = new System.Drawing.Size(1207, 25);
             this.statusPanel.TabIndex = 5;
             // 
-            // status
+            // statusLabel
             // 
-            this.status.BackColor = System.Drawing.SystemColors.ControlDark;
-            this.status.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.status.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.status.Location = new System.Drawing.Point(0, 0);
-            this.status.Name = "status";
-            this.status.Size = new System.Drawing.Size(1207, 25);
-            this.status.TabIndex = 0;
-            this.status.Text = "Status";
-            this.status.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.statusLabel.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.statusLabel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.statusLabel.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.statusLabel.Location = new System.Drawing.Point(0, 0);
+            this.statusLabel.Name = "statusLabel";
+            this.statusLabel.Size = new System.Drawing.Size(1207, 25);
+            this.statusLabel.TabIndex = 0;
+            this.statusLabel.Text = "Status";
+            this.statusLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // Overview
             // 
@@ -280,7 +280,7 @@ namespace XonStat_player_tracker
         private System.Windows.Forms.DataGridViewButtonColumn delete;
         private System.Windows.Forms.Panel contentPanel;
         private System.Windows.Forms.Panel statusPanel;
-        private System.Windows.Forms.Label status;
+        private System.Windows.Forms.Label statusLabel;
     }
 }
 

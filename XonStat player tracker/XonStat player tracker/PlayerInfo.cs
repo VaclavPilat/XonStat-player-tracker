@@ -27,29 +27,33 @@ namespace XonStat_player_tracker
             this.Player = player;
             this.token = this.tokenSource.Token;
             InitializeComponent();
-            InitializeStatus();
+            InitializeStatus(this.statusLabel);
         }
+
+        //################################################################################
+        //#########################  LOADING PLAYER INFORMATION  #########################
+        //################################################################################
 
         // Starting worker thread
         private void PlayerInfo_Load (object sender, EventArgs e)
         {
-            this.task = new Task(() => LoadPlayerInfo());
+            this.task = new Task(() => Player_LoadProfile());
             this.task.Start();
         }
 
         // Loading player info
-        private void LoadPlayerInfo ()
+        private void Player_LoadProfile ()
         {
             this.Invoke(new Action(() => { Status_ChangeMessage("Loading player info from his profile..."); }));
             this.Player.LoadAll();
             this.token.ThrowIfCancellationRequested();
-            PrintPlayerVariables();
+            Player_PrintVariables();
             if(this.Player.Correct)
-                LoadPlayerNames();
+                Player_LoadNames();
         }
 
         // Printing out variables
-        private void PrintPlayerVariables ()
+        private void Player_PrintVariables ()
         {
             this.Invoke(new Action(() => {
                 this.id.Text = this.Player.ID.ToString();
@@ -67,7 +71,7 @@ namespace XonStat_player_tracker
         }
 
         // Getting recently used names
-        private void LoadPlayerNames()
+        private void Player_LoadNames()
         {
             try
             {
@@ -113,7 +117,7 @@ namespace XonStat_player_tracker
                             }
                             catch (WebException) { }
                             this.Invoke(new Action(() => { Status_ChangeProgress(current, correct, maximum); }));
-                            PrintPlayerNames(usedNames);
+                            Player_PrintNames(usedNames);
                         }
                         this.Invoke(new Action(() => { Status_ResultMessage("Finished loading recently used names", correct, maximum); }));
                     }
@@ -131,7 +135,7 @@ namespace XonStat_player_tracker
         }
 
         // Printing out Dictionary that contains player names
-        private void PrintPlayerNames(Dictionary<string, int> usedNames)
+        private void Player_PrintNames(Dictionary<string, int> usedNames)
         {
             // Dictionary to string
             string[] names = new string[usedNames.Count];
@@ -143,6 +147,10 @@ namespace XonStat_player_tracker
             }
             this.Invoke(new Action(() => { this.names.Lines = names; }));
         }
+
+        //################################################################################
+        //################################  CLOSING FORM  ################################
+        //################################################################################
 
         // If the close button has been already pressed
         private bool CanClose = false;
