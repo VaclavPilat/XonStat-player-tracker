@@ -106,7 +106,6 @@ namespace XonStat_player_tracker
             this.id.Name = "id";
             this.id.Size = new System.Drawing.Size(223, 20);
             this.id.TabIndex = 8;
-            this.id.Text = "---";
             // 
             // name
             // 
@@ -119,7 +118,6 @@ namespace XonStat_player_tracker
             this.name.Name = "name";
             this.name.Size = new System.Drawing.Size(451, 38);
             this.name.TabIndex = 0;
-            this.name.Text = "---";
             this.name.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // nickname
@@ -133,7 +131,6 @@ namespace XonStat_player_tracker
             this.nickname.Name = "nickname";
             this.nickname.Size = new System.Drawing.Size(451, 20);
             this.nickname.TabIndex = 9;
-            this.nickname.Text = "---";
             this.nickname.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // since_label
@@ -159,7 +156,6 @@ namespace XonStat_player_tracker
             this.since.Name = "since";
             this.since.Size = new System.Drawing.Size(223, 20);
             this.since.TabIndex = 10;
-            this.since.Text = "---";
             // 
             // active_label
             // 
@@ -184,7 +180,6 @@ namespace XonStat_player_tracker
             this.active.Name = "active";
             this.active.Size = new System.Drawing.Size(223, 20);
             this.active.TabIndex = 11;
-            this.active.Text = "---";
             // 
             // time_label
             // 
@@ -209,7 +204,6 @@ namespace XonStat_player_tracker
             this.time.Name = "time";
             this.time.Size = new System.Drawing.Size(223, 20);
             this.time.TabIndex = 12;
-            this.time.Text = "---";
             // 
             // names_label
             // 
@@ -236,7 +230,6 @@ namespace XonStat_player_tracker
             this.names.Size = new System.Drawing.Size(223, 213);
             this.names.TabIndex = 13;
             this.names.TabStop = false;
-            this.names.Text = "---";
             this.names.WordWrap = false;
             // 
             // contentPanel
@@ -269,7 +262,7 @@ namespace XonStat_player_tracker
             this.statusLabel.Name = "statusLabel";
             this.statusLabel.Size = new System.Drawing.Size(457, 25);
             this.statusLabel.TabIndex = 0;
-            this.statusLabel.Text = "Status";
+            this.statusLabel.Text = "Ready";
             this.statusLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // PlayerInfo

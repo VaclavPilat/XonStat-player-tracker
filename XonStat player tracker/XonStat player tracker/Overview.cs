@@ -85,11 +85,13 @@ namespace XonStat_player_tracker
         private Color rowColor;
 
         // Showing plyer info in DataGridView
-        public void PlayerList_PrintInfo (Player player)
+        public void PlayerList_PrintInfo (Player player, bool newPlayer = false)
         {
+            int row = GetGridRowIndex(player);
+            if (newPlayer)
+                ChangeRowBackColor(players.Rows[row], Color.Beige);
             // Loading player profile
             player.LoadProfile();
-            int row = GetGridRowIndex(player);
             if (player.Correct)
             {
                 // Printing out player info
@@ -102,6 +104,15 @@ namespace XonStat_player_tracker
                     players.Rows[row].Cells["active"].Style = new DataGridViewCellStyle { ForeColor = player.GetActiveColor() };
                 }
             }
+            if (newPlayer)
+                if(player.Name != null)
+                    this.Invoke(new Action(() => {
+                        Status_ResultMessage("Successfully loaded profile of a new player \"" + player.Nickname + "\" (ID = " + player.ID.ToString() + ").", true);
+                    }));
+                else
+                    this.Invoke(new Action(() => {
+                        Status_ResultMessage("Some issues occured when loading profile of a new player \"" + player.Nickname + "\" (ID = " + player.ID.ToString() + ").", false);
+                    }));
             ChangeRowBackColor(players.Rows[row], this.rowColor);
         }
 
@@ -184,7 +195,7 @@ namespace XonStat_player_tracker
             if (task.IsCompleted)
                 if (MessageBox.Show("Are you sure you want to delete player \"" + player.Nickname + "\" (ID = " + player.ID.ToString() + ") ?", 
                                     "XonStat player tracker", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
-                    this.task.ContinueWith(t =>
+                    task.ContinueWith(t =>
                     {
                         // Removing the player from DataGridView
                         int row = GetGridRowIndex(player);
@@ -282,7 +293,7 @@ namespace XonStat_player_tracker
         private void refreshList_Click(object sender, EventArgs e)
         {
             if (task.IsCompleted)
-                this.task.ContinueWith(t =>
+                task.ContinueWith(t =>
                 {
                     PlayerList_LoadProfiles();
                 });

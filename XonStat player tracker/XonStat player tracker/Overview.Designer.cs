@@ -29,9 +29,9 @@ namespace XonStat_player_tracker
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Overview));
             this.refreshList = new System.Windows.Forms.Button();
             this.addPlayer = new System.Windows.Forms.Button();
@@ -157,9 +157,9 @@ namespace XonStat_player_tracker
             // profile
             // 
             this.profile.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle4.BackColor = System.Drawing.Color.LightSkyBlue;
-            this.profile.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.LightSkyBlue;
+            this.profile.DefaultCellStyle = dataGridViewCellStyle1;
             this.profile.FillWeight = 120F;
             this.profile.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.profile.HeaderText = "Profile";
@@ -175,9 +175,9 @@ namespace XonStat_player_tracker
             // info
             // 
             this.info.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle5.BackColor = System.Drawing.Color.LemonChiffon;
-            this.info.DefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.LemonChiffon;
+            this.info.DefaultCellStyle = dataGridViewCellStyle2;
             this.info.FillWeight = 120F;
             this.info.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.info.HeaderText = "Player info";
@@ -193,9 +193,9 @@ namespace XonStat_player_tracker
             // delete
             // 
             this.delete.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle6.BackColor = System.Drawing.Color.LightSalmon;
-            this.delete.DefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.LightSalmon;
+            this.delete.DefaultCellStyle = dataGridViewCellStyle3;
             this.delete.FillWeight = 120F;
             this.delete.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.delete.HeaderText = "Delete player";
@@ -241,7 +241,7 @@ namespace XonStat_player_tracker
             this.statusLabel.Name = "statusLabel";
             this.statusLabel.Size = new System.Drawing.Size(1207, 25);
             this.statusLabel.TabIndex = 0;
-            this.statusLabel.Text = "Status";
+            this.statusLabel.Text = "Ready";
             this.statusLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // Overview

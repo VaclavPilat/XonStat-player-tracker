@@ -12,7 +12,7 @@ namespace XonStat_player_tracker
         //################################################################################
 
         // Worker thread
-        protected Task task;
+        public Task task;
 
         // Cancellation token source for cancelling tasks
         protected CancellationTokenSource tokenSource = new CancellationTokenSource();

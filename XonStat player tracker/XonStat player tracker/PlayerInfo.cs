@@ -37,8 +37,8 @@ namespace XonStat_player_tracker
         // Starting worker thread
         private void PlayerInfo_Load (object sender, EventArgs e)
         {
-            this.task = new Task(() => Player_LoadProfile());
-            this.task.Start();
+            task = new Task(() => Player_LoadProfile());
+            task.Start();
         }
 
         // Loading player info
@@ -163,7 +163,7 @@ namespace XonStat_player_tracker
                 e.Cancel = true;
                 Status_ClosingMessage();
                 this.tokenSource.Cancel();
-                this.task.ContinueWith(t =>
+                task.ContinueWith(t =>
                 {
                     this.tokenSource.Dispose();
                     this.Overview.OpenForms.Remove(this);
