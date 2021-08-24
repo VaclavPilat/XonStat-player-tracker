@@ -50,8 +50,8 @@ namespace XonStat_player_tracker
                             config.Save();
                             ConfigurationManager.RefreshSection("appSettings");
                             // Adding player into DataGridView
-                            Player player = this.Overview.CreatePlayerInstance(ID);
-                            this.Overview.ShowPlayerInfo(player);
+                            Player player = this.Overview.PlayerList_CreatePlayer(ID);
+                            this.Overview.PlayerList_PrintInfo(player);
                             this.Overview.Status_ResultMessage("New player (ID = " + player.ID.ToString() + ") added. Loading player profile...", player.Correct);
                             this.Close();
                         }
