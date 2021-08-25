@@ -66,7 +66,10 @@ namespace XonStat_player_tracker
                     PlayerList_CreatePlayer(intID);
                 Status_ChangeProgress(current, PlayerList.Count, playerList.Count);
             }
-            Status_ResultMessage("Finished loading players from Appsettings", PlayerList.Count, playerList.Count);
+            if(playerList.Count > 0)
+                Status_ResultMessage("Finished loading players from Appsettings", PlayerList.Count, playerList.Count);
+            else
+                Status_ResultMessage("No stored players were found in Appsettings", true);
             // Starting worker thread
             task = new Task(() => PlayerList_LoadProfiles());
             task.Start();
@@ -82,10 +85,8 @@ namespace XonStat_player_tracker
             return player;
         }
 
-        private Color rowColor;
-
         // Showing plyer info in DataGridView
-        public void PlayerList_PrintInfo (Player player, bool newPlayer = false)
+        public void PlayerList_PrintInfo(Player player, bool newPlayer = false)
         {
             int row = GetGridRowIndex(player);
             if (newPlayer)
@@ -104,16 +105,24 @@ namespace XonStat_player_tracker
                     players.Rows[row].Cells["active"].Style = new DataGridViewCellStyle { ForeColor = player.GetActiveColor() };
                 }
             }
-            if (newPlayer)
-                if(player.Name != null)
-                    this.Invoke(new Action(() => {
+            if (player.Correct)
+            {
+                ChangeRowBackColor(players.Rows[row], SystemColors.Window);
+                if (newPlayer)
+                    this.Invoke(new Action(() =>
+                    {
                         Status_ResultMessage("Successfully loaded profile of a new player \"" + player.Nickname + "\" (ID = " + player.ID.ToString() + ").", true);
                     }));
-                else
-                    this.Invoke(new Action(() => {
+            }
+            else
+            {
+                ChangeRowBackColor(players.Rows[row], Color.MistyRose);
+                if (newPlayer)
+                    this.Invoke(new Action(() =>
+                    {
                         Status_ResultMessage("Some issues occured when loading profile of a new player \"" + player.Nickname + "\" (ID = " + player.ID.ToString() + ").", false);
                     }));
-            ChangeRowBackColor(players.Rows[row], this.rowColor);
+            }
         }
 
         // Loading all player profiles
@@ -123,7 +132,7 @@ namespace XonStat_player_tracker
                 this.addPlayer.Enabled = false;
                 this.refreshList.Enabled = false;
             }));
-            WaitForSeconds(1);
+            WaitForSeconds(1.5f);
             this.Invoke(new Action(() => { 
                 Status_ChangeMessage("Loading player info from their profiles..."); 
             }));
@@ -131,15 +140,15 @@ namespace XonStat_player_tracker
             int correct = 0;
             try
             {
+                this.Invoke(new Action(() => {
+                    Status_ChangeProgress(current, correct, PlayerList.Count);
+                }));
                 foreach (Player player in PlayerList)
                 {
                     // Changing row color
                     int row = GetGridRowIndex(player);
                     if (row >= 0)
-                    {
-                        this.rowColor = players.Rows[row].DefaultCellStyle.BackColor;
                         ChangeRowBackColor(players.Rows[row], Color.Beige);
-                    }
                     WaitForSeconds(0.25f);
                     // Loading player profile
                     current++;
@@ -151,7 +160,10 @@ namespace XonStat_player_tracker
                     }));
                 }
                 this.Invoke(new Action(() => { 
-                    Status_ResultMessage("Finished loading data from player profiles", correct, PlayerList.Count);
+                    if(PlayerList.Count > 0)
+                        Status_ResultMessage("Finished loading data from player profiles", correct, PlayerList.Count);
+                    else
+                        Status_ResultMessage("No players found, no profiles were loaded", true);
                     this.addPlayer.Enabled = true;
                     this.refreshList.Enabled = true;
                 }));
