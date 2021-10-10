@@ -1,6 +1,8 @@
 # XonStat player tracker
 A simple web scraping application made in Windows Forms for tracking Xonotic players.
 
+**This repo is not in development anymore, please use [a new version](https://github.com/VaclavPilat/XonStat-player-tracker-v2) instead.** 
+
 ## How it works
 This program allows you to track selected Xonotic players by extracting information from their profiles on [XonStat webpage](https://stats.xonotic.org).
 The web scraping part of this app is done using [Html Agility Pack](https://html-agility-pack.net/) package. 
